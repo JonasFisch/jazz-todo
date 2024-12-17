@@ -2,11 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-// import { JazzAndAuth } from "./jazz.tsx";
 
 import { createJazzReactApp, useDemoAuth, DemoAuthBasicUI } from "jazz-react";
+import { ListManagerAccount } from "./schema.ts";
 
-const Jazz = createJazzReactApp();
+const Jazz = createJazzReactApp<ListManagerAccount>({
+  AccountSchema: ListManagerAccount,
+});
 export const { useAccount, useCoState } = Jazz;
 
 function JazzAndAuth({ children }: { children: React.ReactNode }) {
@@ -17,7 +19,7 @@ function JazzAndAuth({ children }: { children: React.ReactNode }) {
       <Jazz.Provider auth={auth} peer="ws://localhost:4200">
         {children}
       </Jazz.Provider>
-      <DemoAuthBasicUI appName="Circular" state={authState} />
+      <DemoAuthBasicUI appName="JazzTodo" state={authState} />
     </>
   );
 }

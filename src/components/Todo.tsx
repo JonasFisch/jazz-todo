@@ -1,29 +1,42 @@
+import { Checkbox, Input, InputRef } from "antd";
 import { Todo } from "../schema";
+import { forwardRef } from "react";
 
-export function TodoComponent({ todo }: { todo: Todo }) {
+export const TodoComponent = forwardRef<
+  InputRef,
+  {
+    todo: Todo;
+    onEnterPressed?: () => void;
+  }
+>(({ todo, onEnterPressed: onSave }, ref) => {
   return (
     <div className="flex flex-row gap-4">
-      <input
-        type="checkbox"
-        checked={todo.checked}
+      <Checkbox
         onChange={(event) => {
           todo.checked = event.target.checked;
         }}
+        checked={todo.checked}
       />
-      <input
-        type="text"
-        value={todo.title}
-        onChange={(event) => {
-          todo.title = event.target.value;
-        }}
-      />
-      <input
-        type="text"
-        value={todo.description}
-        onChange={(event) => {
-          todo.description = event.target.value;
-        }}
-      />
+      <div className="border-b border-1 border-solid w-full">
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            onSave?.();
+          }}
+        >
+          <Input
+            ref={ref}
+            type="text"
+            placeholder=""
+            variant="borderless"
+            value={todo.title}
+            className=""
+            onChange={(event) => {
+              todo.title = event.target.value;
+            }}
+          />
+        </form>
+      </div>
     </div>
   );
-}
+});

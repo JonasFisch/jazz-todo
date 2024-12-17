@@ -1,40 +1,96 @@
-import { useState } from "react";
-import { List, ListOfTodos } from "./schema";
 import { useAccount } from "./main";
-import { Group, ID } from "jazz-tools";
+import { createList } from "./actions";
 import { ListComponent } from "./components/List";
+import { Button, Flex, Layout, Menu, theme } from "antd";
+import { Content } from "antd/es/layout/layout";
+import Sider from "antd/es/layout/Sider";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 function App() {
   const { me } = useAccount();
-  const [listID, setListID] = useState<ID<List> | undefined>(
-    (window.location.search?.replace("?list=", "") || undefined) as
-      | ID<List>
-      | undefined
+  const activeList = me.root?.activeList;
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  return (
+    <Layout className="h-full">
+      <Content
+        style={{ padding: "0 48px" }}
+        className="flex flex-row w-full justify-center items-center"
+      >
+        <Layout
+          style={{
+            padding: "24px 0",
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+          className="max-w-4xl h-[80%]"
+        >
+          <Sider
+            style={{ background: colorBgContainer }}
+            width={200}
+            className=" relative border-r"
+          >
+            <Flex className="flex-col h-full justify-between">
+              <div className="overflow-y-auto">
+                {me.root && (
+                  <Menu
+                    mode="inline"
+                    className=""
+                    defaultOpenKeys={["sub1"]}
+                    selectedKeys={[activeList?.id.toString() ?? ""]}
+                    style={{ height: "100%", border: "None" }}
+                    onClick={(event) => {
+                      if (me.root) {
+                        me.root.activeList = me.root.lists?.find(
+                          (list) => list?.id == event.key
+                        );
+                      }
+                    }}
+                    items={[
+                      {
+                        key: "grp",
+                        label: "Listen",
+                        type: "group",
+                        children: me.root?.lists
+                          ?.filter((list) => list != null)
+                          .map((list) => ({
+                            key: list.id,
+                            label: list.name.toString(),
+                          })),
+                      },
+                    ]}
+                  />
+                )}
+              </div>
+              <div className="flex flex-row justify-center p-4">
+                <Button
+                  icon={<PlusCircleOutlined />}
+                  onClick={() => {
+                    const newList = createList(me);
+                    if (me.root) {
+                      me?.root?.lists?.push(newList);
+                      me.root.activeList = newList;
+                    }
+                  }}
+                >
+                  Create List
+                </Button>
+              </div>
+            </Flex>
+          </Sider>
+          <Content
+            style={{ padding: "0 24px", minHeight: 280 }}
+            className="overflow-y-auto"
+          >
+            {activeList && <ListComponent listID={activeList?.id} />}
+          </Content>
+        </Layout>
+      </Content>
+    </Layout>
   );
-
-  const createList = () => {
-    const group = Group.create({ owner: me });
-    const newList = List.create(
-      {
-        name: "Einkaufsliste",
-        todos: ListOfTodos.create([], { owner: group }),
-      },
-      { owner: group }
-    );
-    setListID(newList.id);
-    window.history.pushState({}, "", `?list=${newList.id}`);
-  };
-
-  if (listID) {
-    return (
-      <>
-        <h1>{me.profile?.name}</h1>
-        <ListComponent listID={listID} />
-      </>
-    );
-  } else {
-    return <button onClick={createList}>Create List</button>;
-  }
 }
 
 export default App;
