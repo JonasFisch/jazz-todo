@@ -25,3 +25,9 @@ dist-ssr
 
 # React Component Preview
 previewConfig.json
+
+# Jazz storage
+.db-wal
+.db
+.db-shm
+sync-db/*

@@ -10,13 +10,17 @@ const Jazz = createJazzReactApp<ListManagerAccount>({
   AccountSchema: ListManagerAccount,
 });
 export const { useAccount, useCoState } = Jazz;
-
+// TODO: move to seperate file
 function JazzAndAuth({ children }: { children: React.ReactNode }) {
   const [auth, authState] = useDemoAuth();
 
   return (
     <>
-      <Jazz.Provider auth={auth} peer="ws://localhost:4200">
+      <Jazz.Provider
+        auth={auth}
+        peer="ws://localhost:4200"
+        storage={"indexedDB"}
+      >
         {children}
       </Jazz.Provider>
       <DemoAuthBasicUI appName="JazzTodo" state={authState} />

@@ -9,6 +9,8 @@ export const TodoComponent = forwardRef<
     onEnterPressed?: () => void;
   }
 >(({ todo, onEnterPressed: onSave }, ref) => {
+  // console.log(todo._raw.nthEditAt("title", 4));
+
   return (
     <div className="flex flex-row gap-4">
       <Checkbox

@@ -1,13 +1,10 @@
-import { ID } from "jazz-tools";
 import { List, Todo } from "../schema";
-import { useCoState } from "../main";
 import { TodoComponent } from "./Todo.tsx";
 import { Button, Col, Empty, InputRef, Row, Typography } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { useRef } from "react";
 
-export function ListComponent({ listID: listId }: { listID: ID<List> }) {
-  const list = useCoState(List, listId);
+export function ListComponent({ list: list }: { list: List }) {
   const uncheckedTodos = (list?.todos ?? []).filter((todo) => !todo?.checked);
   const lastTodo = uncheckedTodos[uncheckedTodos.length - 1];
 
@@ -43,6 +40,7 @@ export function ListComponent({ listID: listId }: { listID: ID<List> }) {
       );
     focusLastItem();
   };
+  console.log(list);
 
   if (list) {
     return (
