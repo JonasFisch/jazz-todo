@@ -1,11 +1,11 @@
-import { useAccount } from "./main";
+import { useAccount } from "./hooks/jazz-hooks";
 import { createList } from "./actions";
 import { ListComponent } from "./components/List";
 import { Button, Flex, Layout, Menu, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import OfflineBanner from "./components/OfflineBanner";
+// import OfflineBanner from "./components/OfflineBanner";
 
 function App() {
   const { me } = useAccount();
@@ -17,9 +17,11 @@ function App() {
 
   return (
     <Layout className="h-full">
-      <div className="fixed top-0 left-0 w-full">
-        <OfflineBanner />
-      </div>
+      {/* {
+        <div className="fixed top-0 left-0 w-full">
+          <OfflineBanner />
+        </div>
+      } */}
       <Content
         style={{ padding: "0 48px" }}
         className="flex flex-row w-full justify-center items-center"
