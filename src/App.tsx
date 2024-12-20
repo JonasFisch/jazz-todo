@@ -5,11 +5,13 @@ import { Button, Flex, Layout, Menu, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { PlusCircleOutlined } from "@ant-design/icons";
-// import OfflineBanner from "./components/OfflineBanner";
+import useIsAppOffline from "./hooks/is-app-offline-hook";
+import OfflineBanner from "./components/OfflineBanner";
 
 function App() {
   const { me } = useAccount();
   const activeList = me.root?.activeList;
+  const isAppOffline = useIsAppOffline();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -17,11 +19,11 @@ function App() {
 
   return (
     <Layout className="h-full">
-      {/* {
+      {isAppOffline && (
         <div className="fixed top-0 left-0 w-full">
           <OfflineBanner />
         </div>
-      } */}
+      )}
       <Content
         style={{ padding: "0 48px" }}
         className="flex flex-row w-full justify-center items-center"
