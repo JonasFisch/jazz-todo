@@ -1,3 +1,3 @@
 import { Jazz } from "../jazz";
 
-export const { useAccount, useCoState } = Jazz;
+export const { useAccount, useCoState, useAcceptInvite } = Jazz;

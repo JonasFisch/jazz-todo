@@ -10,11 +10,7 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Jazz.Provider
-        auth={auth}
-        peer="ws://localhost:4200"
-        storage={"indexedDB"}
-      >
+      <Jazz.Provider auth={auth} peer="ws://localhost:4200">
         {children}
       </Jazz.Provider>
       <DemoAuthBasicUI appName="JazzTodo" state={authState} />

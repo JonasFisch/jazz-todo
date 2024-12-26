@@ -1,4 +1,4 @@
-import { useAccount } from "./hooks/jazz-hooks";
+import { useAcceptInvite, useAccount } from "./hooks/jazz-hooks";
 import { createList } from "./actions";
 import { ListComponent } from "./components/List";
 import { Button, Flex, Layout, Menu, theme } from "antd";
@@ -7,11 +7,48 @@ import Sider from "antd/es/layout/Sider";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import useIsAppOffline from "./hooks/is-app-offline-hook";
 import OfflineBanner from "./components/OfflineBanner";
+import { List } from "./schema";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { CoValue, ID, InviteSecret } from "jazz-tools";
+import { useEffect } from "react";
+import { parseInviteLink } from "jazz-react";
 
 function App() {
   const { me } = useAccount();
-  const activeList = me.root?.activeList;
   const isAppOffline = useIsAppOffline();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  console.log(me.id);
+
+  // useAcceptInvite({
+  //   invitedObjectSchema: List,
+  //   onAccept: async (listID) => {
+  //     console.log("accepted ", listID);
+  //     navigate(`/?active=${listID}`);
+  //   },
+  //   forValueHint: "list",
+  // });
+  const handleInviteLink = async (values: {
+    valueID: ID<CoValue>;
+    valueHint?: string;
+    inviteSecret: InviteSecret;
+  }) => {
+    await me
+      ?.acceptInvite(values.valueID as ID<List>, values.inviteSecret, List)
+      .then((newList) => {
+        console.log("successfully added to list: ", newList);
+
+        if (newList && me?.root?.lists) {
+          me.root.lists.push(newList);
+        }
+      });
+  };
+
+  useEffect(() => {
+    const inviteLinkObject = parseInviteLink(window.location.href);
+    if (inviteLinkObject) handleInviteLink(inviteLinkObject);
+  }, []);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -48,14 +85,11 @@ function App() {
                     mode="inline"
                     className=""
                     defaultOpenKeys={["sub1"]}
-                    selectedKeys={[activeList?.id.toString() ?? ""]}
+                    selectedKeys={[searchParams.get("active") ?? ""]}
                     style={{ height: "100%", border: "None" }}
                     onClick={(event) => {
-                      if (me.root) {
-                        me.root.activeList = me.root.lists?.find(
-                          (list) => list?.id == event.key
-                        );
-                      }
+                      searchParams.set("active", event.key);
+                      setSearchParams(searchParams);
                     }}
                     items={[
                       {
@@ -63,7 +97,7 @@ function App() {
                         label: "Listen",
                         type: "group",
                         children: me.root?.lists
-                          ?.filter((list) => list != null)
+                          ?.filter((list) => !!list)
                           .map((list) => ({
                             key: list.id,
                             label: list.name.toString(),
@@ -80,7 +114,8 @@ function App() {
                     const newList = createList(me);
                     if (me.root) {
                       me.root.lists?.push(newList);
-                      me.root.activeList = newList;
+                      searchParams.set("active", newList.id);
+                      setSearchParams(searchParams);
                     }
                   }}
                 >
@@ -93,7 +128,9 @@ function App() {
             style={{ padding: "0 24px", minHeight: 280 }}
             className="overflow-y-auto"
           >
-            {activeList && <ListComponent list={activeList} />}
+            {searchParams.get("active") && (
+              <ListComponent listID={searchParams.get("active") as ID<List>} />
+            )}
           </Content>
         </Layout>
       </Content>
