@@ -9,9 +9,7 @@ import useIsAppOffline from "./hooks/is-app-offline-hook";
 import OfflineBanner from "./components/OfflineBanner";
 import { List } from "./schema";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { CoValue, ID, InviteSecret } from "jazz-tools";
-import { useEffect } from "react";
-import { parseInviteLink } from "jazz-react";
+import { ID } from "jazz-tools";
 
 function App() {
   const { me } = useAccount();
@@ -21,34 +19,35 @@ function App() {
 
   console.log(me.id);
 
-  // useAcceptInvite({
-  //   invitedObjectSchema: List,
-  //   onAccept: async (listID) => {
-  //     console.log("accepted ", listID);
-  //     navigate(`/?active=${listID}`);
-  //   },
-  //   forValueHint: "list",
-  // });
-  const handleInviteLink = async (values: {
-    valueID: ID<CoValue>;
-    valueHint?: string;
-    inviteSecret: InviteSecret;
-  }) => {
-    await me
-      ?.acceptInvite(values.valueID as ID<List>, values.inviteSecret, List)
-      .then((newList) => {
-        console.log("successfully added to list: ", newList);
+  useAcceptInvite({
+    invitedObjectSchema: List,
+    onAccept: async (listID) => {
+      const newList = await List.load(listID, me, []);
+      if (newList) navigate(`/?active=${listID}`);
+      else console.error("error in after invite accept action");
+    },
+    forValueHint: "list",
+  });
+  // const handleInviteLink = async (values: {
+  //   valueID: ID<CoValue>;
+  //   valueHint?: string;
+  //   inviteSecret: InviteSecret;
+  // }) => {
+  //   await me
+  //     ?.acceptInvite(values.valueID as ID<List>, values.inviteSecret, List)
+  //     .then((newList) => {
+  //       console.log("successfully added to list: ", newList);
 
-        if (newList && me?.root?.lists) {
-          me.root.lists.push(newList);
-        }
-      });
-  };
+  //       if (newList && me?.root?.lists) {
+  //         me.root.lists.push(newList);
+  //       }
+  //     });
+  // };
 
-  useEffect(() => {
-    const inviteLinkObject = parseInviteLink(window.location.href);
-    if (inviteLinkObject) handleInviteLink(inviteLinkObject);
-  }, []);
+  // useEffect(() => {
+  //   const inviteLinkObject = parseInviteLink(window.location.href);
+  //   if (inviteLinkObject) handleInviteLink(inviteLinkObject);
+  // }, []);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
