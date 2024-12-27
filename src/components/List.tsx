@@ -26,18 +26,14 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   const list = useCoState(List, listID);
   const uncheckedTodos = (list?.todos ?? []).filter((todo) => !todo?.checked);
   const lastTodo = uncheckedTodos[uncheckedTodos.length - 1];
+  const members = list?._owner.castAs(Group).members ?? [];
 
   const invite = (role: "reader" | "writer") => {
     if (list) {
-      console.log("created invite for: ", list.id);
-
       const inviteLink = createInviteLink(list, role, {
         valueHint: "list",
       });
-      if (inviteLink) {
-        console.log("copied link to clipboard");
-        navigator.clipboard.writeText(inviteLink);
-      }
+      if (inviteLink) navigator.clipboard.writeText(inviteLink);
     }
   };
 
@@ -72,8 +68,6 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       );
     focusLastItem();
   };
-
-  console.log("myrole is: ", list?._owner.myRole());
 
   if (list) {
     return (
@@ -111,19 +105,15 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 </Button>
                 <InviteModal
                   onInvitePressed={async (userID) => {
-                    console.log("inviting user here", userID);
                     const account = await Account.load(
                       userID as ID<Account>,
                       me,
                       []
                     );
-                    // TODO: try invite with using groups
                     if (account) {
                       const group = list._owner.castAs(Group);
                       group.addMember(account, "writer");
-                    } else {
-                      console.warn("WARNING: could not load user...");
-                    }
+                    } else console.warn("WARNING: could not load user...");
                   }}
                   open={inviteOpen}
                   onClose={() => setInviteOpen(false)}
@@ -132,28 +122,32 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
               </div>
             )}
           </div>
-          <Avatar.Group
-            max={{
-              count: 2,
-              style: { color: "#f56a00", backgroundColor: "#fde3cf" },
-            }}
-            className="flex flex-row justify-end w-full"
-          >
-            {list._owner.castAs(Group).members.map((member) => (
-              <Tooltip
-                key={`avatar-${member.id}`}
-                title={member.account?.profile?.name}
-                placement="top"
-              >
-                <Avatar
-                  size={"large"}
-                  style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
+          {members.length > 1 && (
+            <Avatar.Group
+              max={{
+                count: 2,
+                style: { color: "#f56a00", backgroundColor: "#fde3cf" },
+              }}
+              className="flex flex-row justify-end w-full"
+            >
+              {members.map((member) => (
+                <Tooltip
+                  key={`avatar-${member.id}`}
+                  title={member.account?.profile?.name}
+                  placement="top"
                 >
-                  {member.account?.profile?.name.substring(0, 2).toUpperCase()}
-                </Avatar>
-              </Tooltip>
-            ))}
-          </Avatar.Group>
+                  <Avatar
+                    size={"large"}
+                    style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
+                  >
+                    {member.account?.profile?.name
+                      .substring(0, 2)
+                      .toUpperCase()}
+                  </Avatar>
+                </Tooltip>
+              ))}
+            </Avatar.Group>
+          )}
         </Col>
         <Col flex={"auto"} className="overflow-y-auto">
           <div className="flex flex-col gap-0 h-full">

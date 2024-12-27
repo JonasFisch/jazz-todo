@@ -17,8 +17,6 @@ function App() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  console.log(me.id);
-
   useAcceptInvite({
     invitedObjectSchema: List,
     onAccept: async (listID) => {
@@ -28,26 +26,6 @@ function App() {
     },
     forValueHint: "list",
   });
-  // const handleInviteLink = async (values: {
-  //   valueID: ID<CoValue>;
-  //   valueHint?: string;
-  //   inviteSecret: InviteSecret;
-  // }) => {
-  //   await me
-  //     ?.acceptInvite(values.valueID as ID<List>, values.inviteSecret, List)
-  //     .then((newList) => {
-  //       console.log("successfully added to list: ", newList);
-
-  //       if (newList && me?.root?.lists) {
-  //         me.root.lists.push(newList);
-  //       }
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const inviteLinkObject = parseInviteLink(window.location.href);
-  //   if (inviteLinkObject) handleInviteLink(inviteLinkObject);
-  // }, []);
 
   const {
     token: { colorBgContainer, borderRadiusLG },
