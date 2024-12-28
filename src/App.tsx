@@ -1,7 +1,7 @@
 import { useAcceptInvite, useAccount } from "./hooks/jazz-hooks";
 import { createList } from "./actions";
 import { ListComponent } from "./components/List";
-import { Button, Flex, Layout, Menu, theme } from "antd";
+import { Button, Flex, Layout, Menu } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { PlusCircleOutlined } from "@ant-design/icons";
@@ -27,10 +27,6 @@ function App() {
     forValueHint: "list",
   });
 
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
   return (
     <Layout className="h-full">
       {isAppOffline && (
@@ -38,22 +34,15 @@ function App() {
           <OfflineBanner />
         </div>
       )}
-      <Content
-        style={{ padding: "0 48px" }}
-        className="flex flex-row w-full justify-center items-center"
-      >
-        <Layout
-          style={{
-            padding: "24px 0",
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-          className="max-w-4xl h-[80%]"
-        >
+      <Content className="flex flex-row w-full justify-center items-center sm:p-4">
+        <Layout className="max-w-4xl h-full sm:h-[80%] rounded-md overflow-hidden bg-white">
           <Sider
-            style={{ background: colorBgContainer }}
             width={200}
-            className=" relative border-r"
+            className={`relative border-r bg-white sm:block ${
+              searchParams.get("active")
+                ? "hidden"
+                : "!w-full !max-w-none !flex-none"
+            }`}
           >
             <Flex className="flex-col h-full justify-between">
               <div className="overflow-y-auto">
@@ -87,6 +76,7 @@ function App() {
               <div className="flex flex-row justify-center p-4">
                 <Button
                   icon={<PlusCircleOutlined />}
+                  size="large"
                   onClick={() => {
                     const newList = createList(me);
                     if (me.root) {
@@ -103,10 +93,14 @@ function App() {
           </Sider>
           <Content
             style={{ padding: "0 24px", minHeight: 280 }}
-            className="overflow-y-auto"
+            className={`overflow-y-auto sm:block ${
+              searchParams.get("active") ? null : "hidden"
+            }`}
           >
-            {searchParams.get("active") && (
+            {searchParams.get("active") ? (
               <ListComponent listID={searchParams.get("active") as ID<List>} />
+            ) : (
+              <div>select a list or create a new one</div>
             )}
           </Content>
         </Layout>

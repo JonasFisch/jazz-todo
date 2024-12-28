@@ -16,12 +16,14 @@ import { createInviteLink } from "jazz-react";
 import { useAccount, useCoState } from "../hooks/jazz-hooks.ts";
 import { Account, Group, ID } from "jazz-tools";
 import { InviteModal } from "./InviteModal.tsx";
+import { useNavigate } from "react-router-dom";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
   const newItemRef = useRef<InputRef | null>(null);
   const [inviteOpen, setInviteOpen] = useState(false);
 
   const { me } = useAccount();
+  const navigate = useNavigate();
 
   const list = useCoState(List, listID);
   const uncheckedTodos = (list?.todos ?? []).filter((todo) => !todo?.checked);
@@ -71,8 +73,16 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
 
   if (list) {
     return (
-      <Row className="flex flex-col h-full gap-2 flex-nowrap">
+      <Row className="flex flex-col h-full gap-2 flex-nowrap w-full py-4">
         <Col flex={"none"}>
+          <Button
+            onClick={() => navigate("/", {})}
+            type="text"
+            size="middle"
+            className="text-gray-400 block sm:hidden"
+          >
+            &larr; back
+          </Button>
           <div className="flex flex-row justify-between items-start">
             <Typography.Title
               editable={{
@@ -179,7 +189,9 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
         </Col>
         <Col flex={"none"}>
           <div className="py-4 flex flex-row justify-end">
-            <Button onClick={createAndAddTodo}>Create Todo</Button>
+            <Button onClick={createAndAddTodo} size="large">
+              Create Todo
+            </Button>
           </div>
         </Col>
       </Row>
