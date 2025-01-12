@@ -1,4 +1,4 @@
-import { List, Todo } from "../schema";
+import { List, Todo, TodoAccountProfile } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
 import {
   Avatar,
@@ -10,13 +10,18 @@ import {
   Tooltip,
   Typography,
 } from "antd";
-import { EditOutlined, UsergroupAddOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  UsergroupAddOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { createInviteLink } from "jazz-react";
 import { useAccount, useCoState } from "../hooks/jazz-hooks.ts";
 import { Account, Group, ID } from "jazz-tools";
 import { InviteModal } from "./InviteModal.tsx";
 import { useNavigate } from "react-router-dom";
+import { Image } from "./Image.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
   const newItemRef = useRef<InputRef | null>(null);
@@ -148,12 +153,16 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 >
                   <Avatar
                     size={"large"}
-                    style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
-                  >
-                    {member.account?.profile?.name
-                      .substring(0, 2)
-                      .toUpperCase()}
-                  </Avatar>
+                    className="bg-gray-300"
+                    icon={
+                      // TODO: this works but not recognized by typescript
+                      member.account?.profile?.image ? (
+                        <Image image={member.account?.profile.image} />
+                      ) : (
+                        <UserOutlined />
+                      )
+                    }
+                  />
                 </Tooltip>
               ))}
             </Avatar.Group>

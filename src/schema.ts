@@ -1,7 +1,18 @@
-import { Account, CoList, CoMap, Profile, co } from "jazz-tools";
+import {
+  Account,
+  CoList,
+  CoMap,
+  ImageDefinition,
+  Profile,
+  co,
+} from "jazz-tools";
+
+export class TodoAccountProfile extends Profile {
+  image = co.ref(ImageDefinition, { optional: true });
+}
 
 export class ListManagerAccount extends Account {
-  profile = co.ref(Profile);
+  profile = co.ref(TodoAccountProfile);
   root = co.ref(TodoAccountRoot);
 
   migrate(this: ListManagerAccount, creationProps?: { name: string }) {
@@ -13,6 +24,17 @@ export class ListManagerAccount extends Account {
           activeList: undefined,
         },
         { owner: this }
+      );
+    }
+    if (!this._refs.profile) {
+      this.profile = TodoAccountProfile.create(
+        {
+          name: "",
+          image: null,
+        },
+        {
+          owner: this,
+        }
       );
     }
   }
