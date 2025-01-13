@@ -90,7 +90,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
         console.log("newTodo", newTodo);
 
         list?.todos?.push(newTodo);
-        if (lastTodo && !lastTodo?.isEmpty()) focusLastItem();
+        // if (lastTodo && !lastTodo?.isEmpty()) focusLastItem();
       } catch (error) {
         console.log(error);
       }

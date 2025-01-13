@@ -50,9 +50,10 @@ export class Todo extends CoMap {
   description = co.optional.string;
   checked = co.boolean;
 
-  isEmpty = () => {
-    return this.title.match(/^\s*$/); // empty = no whitespaces or just spaces
-  };
+  // TODO: this could cause error!!!
+  // isEmpty = () => {
+  //   return this.title.match(/^\s*$/); // empty = no whitespaces or just spaces
+  // };
 }
 
 export class ListOfTodos extends CoList.Of(co.ref(Todo)) {}
