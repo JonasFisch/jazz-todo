@@ -1,4 +1,3 @@
-import { useAcceptInvite, useAccount } from "./hooks/jazz-hooks";
 import { createList } from "./actions";
 import { ListComponent } from "./components/List";
 import { Avatar, Button, Flex, Layout, Menu, Modal } from "antd";
@@ -13,6 +12,7 @@ import { ID } from "jazz-tools";
 import { ProfileImageUpload } from "./components/ProfileImageUpload";
 import { useState } from "react";
 import { Image } from "./components/Image";
+import { useAcceptInvite, useAccount } from "jazz-react";
 
 function App() {
   const { me } = useAccount();

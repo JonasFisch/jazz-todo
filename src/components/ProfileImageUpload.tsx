@@ -1,10 +1,11 @@
 import { Avatar, Typography, Upload, UploadProps } from "antd";
-import { useAccount } from "../hooks/jazz-hooks";
 import { co, ImageDefinition } from "jazz-tools";
 import { createImage } from "jazz-browser-media-images";
 import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Image } from "./Image";
+import { useAccount } from "jazz-react";
+import { useClerk } from "@clerk/clerk-react";
 
 export function ProfileImageUpload() {
   const { me } = useAccount();
@@ -21,10 +22,12 @@ export function ProfileImageUpload() {
   //   me.profile.image = null;
   // };
 
+  const clerk = useClerk();
+
   return (
     <>
       <div className="flex flex-col items-center">
-        <Typography.Title>{me.profile?.name}</Typography.Title>
+        <Typography.Title>{clerk.user?.username}</Typography.Title>
         <Upload
           name="avatar"
           listType="picture-circle"

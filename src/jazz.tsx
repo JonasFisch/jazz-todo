@@ -1,19 +1,31 @@
-import { createJazzReactApp, useDemoAuth, DemoAuthBasicUI } from "jazz-react";
+import { JazzProvider } from "jazz-react";
 import { ListManagerAccount } from "./schema.ts";
-
-export const Jazz = createJazzReactApp<ListManagerAccount>({
-  AccountSchema: ListManagerAccount,
-});
+import { useJazzClerkAuth } from "jazz-react-auth-clerk";
+import { SignInButton, useClerk } from "@clerk/clerk-react";
 
 export function JazzAndAuth({ children }: { children: React.ReactNode }) {
-  const [auth, authState] = useDemoAuth();
+  const clerk = useClerk();
+  const [auth] = useJazzClerkAuth(clerk);
 
   return (
     <>
-      <Jazz.Provider auth={auth} peer="ws://localhost:4200">
-        {children}
-      </Jazz.Provider>
-      <DemoAuthBasicUI appName="JazzTodo" state={authState} />
+      {clerk.user && auth ? (
+        <JazzProvider
+          auth={auth}
+          AccountSchema={ListManagerAccount}
+          peer="wss://cloud.jazz.tools/?key=minimal-auth-clerk-example@garden.co"
+        >
+          {children}
+        </JazzProvider>
+      ) : (
+        <SignInButton />
+      )}
     </>
   );
+}
+
+declare module "jazz-react" {
+  interface Register {
+    Account: ListManagerAccount;
+  }
 }

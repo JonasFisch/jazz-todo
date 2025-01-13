@@ -12,11 +12,14 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
+    "@clerk/clerk-react": "^5.4.1",
+    "@clerk/react-router": "^0.1.7",
     "antd": "^5.22.5",
-    "jazz-browser-media-images": "^0.8.45",
-    "jazz-react": "^0.8.44",
-    "jazz-run": "^0.8.44",
-    "jazz-tools": "^0.8.39",
+    "jazz-browser-media-images": "^0.9.1",
+    "jazz-react": "^0.9.4",
+    "jazz-react-auth-clerk": "^0.9.4",
+    "jazz-run": "^0.9.1",
+    "jazz-tools": "^0.9.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.0"

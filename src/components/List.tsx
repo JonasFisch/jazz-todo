@@ -1,4 +1,4 @@
-import { List, Todo, TodoAccountProfile } from "../schema";
+import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
 import {
   Avatar,
@@ -16,8 +16,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
-import { createInviteLink } from "jazz-react";
-import { useAccount, useCoState } from "../hooks/jazz-hooks.ts";
+import { createInviteLink, useAccount, useCoState } from "jazz-react";
 import { Account, Group, ID } from "jazz-tools";
 import { InviteModal } from "./InviteModal.tsx";
 import { useNavigate } from "react-router-dom";
