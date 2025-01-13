@@ -70,6 +70,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       console.log("list exists");
 
       console.log("owner", list._owner);
+      const group = Group.create({ owner: me });
 
       try {
         const newTodo = Todo.create(
@@ -78,7 +79,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             description: "",
             checked: false,
           },
-          { owner: list._owner }
+          { owner: group }
         );
         console.log("newTodo", newTodo);
 
