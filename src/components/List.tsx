@@ -43,12 +43,12 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
     }
   };
 
-  const focusLastItem = () => {
-    setTimeout(() => {
-      // focus referenced item after DOM update
-      if (newItemRef.current) newItemRef.current.focus();
-    }, 0);
-  };
+  // const focusLastItem = () => {
+  //   setTimeout(() => {
+  //     // focus referenced item after DOM update
+  //     if (newItemRef.current) newItemRef.current.focus();
+  //   }, 0);
+  // };
 
   // add list to users lists if needed
   // useEffect(() => {
@@ -62,7 +62,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
 
   const createAndAddTodo = () => {
     console.log("lastTodo", lastTodo);
-    console.log("lastTodoosEmpty", lastTodo?.isEmpty());
+    // console.log("lastTodoosEmpty", lastTodo?.isEmpty());
     console.log("list.todos", list?.todos);
 
     // otherwise build try catch around and log error message
