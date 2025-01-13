@@ -1,4 +1,4 @@
-import { List, Todo } from "../schema";
+import { List, Todo, TodoAccountProfile } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
 import {
   Avatar,
@@ -144,26 +144,28 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
               }}
               className="flex flex-row justify-end w-full"
             >
-              {members.map((member) => (
-                <Tooltip
-                  key={`avatar-${member.id}`}
-                  title={member.account?.profile?.name}
-                  placement="top"
-                >
-                  <Avatar
-                    size={"large"}
-                    className="bg-gray-300"
-                    icon={
-                      // TODO: this works but not recognized by typescript
-                      member.account?.profile?.image ? (
-                        <Image image={member.account?.profile.image} />
-                      ) : (
-                        <UserOutlined />
-                      )
-                    }
-                  />
-                </Tooltip>
-              ))}
+              {members.map((member) => {
+                const profile = member.account?.profile as TodoAccountProfile;
+                return (
+                  <Tooltip
+                    key={`avatar-${member.id}`}
+                    title={member.account?.profile?.name}
+                    placement="top"
+                  >
+                    <Avatar
+                      size={"large"}
+                      className="bg-gray-300"
+                      icon={
+                        profile?.image ? (
+                          <Image image={profile.image} />
+                        ) : (
+                          <UserOutlined />
+                        )
+                      }
+                    />
+                  </Tooltip>
+                );
+              })}
             </Avatar.Group>
           )}
         </Col>
