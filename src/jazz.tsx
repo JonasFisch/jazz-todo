@@ -13,7 +13,7 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
         <JazzProvider
           auth={auth}
           AccountSchema={ListManagerAccount}
-          peer="wss://cloud.jazz.tools/?key=minimal-auth-clerk-example@garden.co"
+          peer={import.meta.env.VITE_JAZZ_PEER}
         >
           {children}
         </JazzProvider>
