@@ -196,7 +196,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
           </div>
         </Col>
         <Col flex={"none"}>
-          <div className="py-4 flex flex-row justify-end">
+          <div className="pt-4 pb-2 flex flex-row justify-end">
             <Button onClick={createAndAddTodo} size="large">
               Create Todo
             </Button>

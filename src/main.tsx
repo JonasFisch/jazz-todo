@@ -20,7 +20,7 @@ createRoot(document.getElementById("root")!).render(
         <JazzAndAuth>
           <App />
           <Routes>
-            <Route element={<App />}></Route>
+            <Route path="/" element={<App />}></Route>
           </Routes>
         </JazzAndAuth>
       </ClerkProvider>
