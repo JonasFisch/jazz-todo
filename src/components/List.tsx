@@ -65,18 +65,17 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
     console.log("lastTodoosEmpty", lastTodo?.isEmpty());
     console.log("list.todos", list?.todos);
 
-    if (lastTodo && !lastTodo?.isEmpty())
-      list?.todos?.push(
-        Todo.create(
-          {
-            title: "",
-            description: "",
-            checked: false,
-          },
-          { owner: list._owner }
-        )
-      );
-    focusLastItem();
+    list?.todos?.push(
+      Todo.create(
+        {
+          title: "",
+          description: "",
+          checked: false,
+        },
+        { owner: list._owner }
+      )
+    );
+    if (lastTodo && !lastTodo?.isEmpty()) focusLastItem();
   };
 
   if (list) {
