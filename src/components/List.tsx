@@ -76,6 +76,8 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
 
       console.log("after printin group._raw");
 
+      console.log(me);
+
       try {
         const newTodo = Todo.create(
           {
