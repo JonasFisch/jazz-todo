@@ -15,7 +15,7 @@ import {
   UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { createInviteLink, useAccount, useCoState } from "jazz-react";
 import { Account, Group, ID } from "jazz-tools";
 import { InviteModal } from "./InviteModal.tsx";
@@ -51,17 +51,21 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   };
 
   // add list to users lists if needed
-  useEffect(() => {
-    if (
-      !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id) &&
-      list
-    ) {
-      me.root?.lists?.push(list);
-    }
-  }, [list, me.root]);
+  // useEffect(() => {
+  //   if (
+  //     list &&
+  //     !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id)
+  //   ) {
+  //     me.root?.lists?.push(list);
+  //   }
+  // }, [list, me.root]);
 
   const createAndAddTodo = () => {
-    if (!lastTodo?.isEmpty())
+    console.log("lastTodo", lastTodo);
+    console.log("lastTodoosEmpty", lastTodo?.isEmpty());
+    console.log("list.todos", list?.todos);
+
+    if (lastTodo && !lastTodo?.isEmpty())
       list?.todos?.push(
         Todo.create(
           {
