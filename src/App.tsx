@@ -1,6 +1,6 @@
 import { createList } from "./actions";
 import { ListComponent } from "./components/List";
-import { Button, Flex, Layout, Menu } from "antd";
+import { Button, Flex, Layout, Typography } from "antd";
 import { Content } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import { PlusCircleOutlined } from "@ant-design/icons";
@@ -36,44 +36,48 @@ function App() {
         </div>
       )}
       <Content className="flex flex-row w-full justify-center items-center sm:p-4">
-        <Layout className="max-w-4xl h-full sm:h-[80%] rounded-md overflow-hidden bg-white">
+        <Layout className="max-w-4xl h-full sm:h-[80%] rounded-md overflow-hidden bg-gray-50">
           <Header />
-          <Layout className="bg-white">
+          <Layout className="bg-gray-50">
             <Sider
               width={200}
-              className={`relative border-r bg-white sm:block ${
+              className={`relative border-r bg-gray-50 sm:block ${
                 searchParams.get("active")
                   ? "hidden"
                   : "!w-full !max-w-none !flex-none"
               }`}
             >
-              <Flex className="flex-col h-full justify-between">
+              <Flex className="flex-col h-full justify-between bg-gray-100">
                 <div className="overflow-y-auto">
                   {me.root && (
-                    <Menu
-                      mode="inline"
-                      className=""
-                      defaultOpenKeys={["sub1"]}
-                      selectedKeys={[searchParams.get("active") ?? ""]}
-                      style={{ height: "100%", border: "None" }}
-                      onClick={(event) => {
-                        searchParams.set("active", event.key);
-                        setSearchParams(searchParams);
-                      }}
-                      items={[
-                        {
-                          key: "grp",
-                          label: "Listen",
-                          type: "group",
-                          children: me.root?.lists
-                            ?.filter((list) => !!list)
-                            .map((list) => ({
-                              key: list.id,
-                              label: list.name.toString(),
-                            })),
-                        },
-                      ]}
-                    />
+                    <div className="p-4">
+                      <div className="py-4 text-xl font-bold">
+                        <Typography.Title level={4}>My Lists</Typography.Title>
+                      </div>
+                      <div className="flex flex-col gap-0 rounded-md overflow-hidden">
+                        {me.root?.lists
+                          ?.filter((list) => !!list)
+                          .map((list) => (
+                            <div
+                              key={list.id}
+                              className={`w-full bg-white px-2 py-4 border-b-[2px] border-gray-100 cursor-pointer ${
+                                me.root?.lists?.indexOf(list) ===
+                                (me.root?.lists?.length ?? 0) - 1
+                                  ? "border-none"
+                                  : ""
+                              }`}
+                              onClick={() => {
+                                searchParams.set("active", list.id);
+                                setSearchParams(searchParams);
+                              }}
+                            >
+                              <Typography.Text>
+                                {list.getNameWithFallback}
+                              </Typography.Text>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-row justify-center p-4 mb-2">

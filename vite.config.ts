@@ -7,7 +7,4 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
-  // server: {
-  //   host: "192.168.0.190",
-  // },
 });

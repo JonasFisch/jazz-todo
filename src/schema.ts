@@ -62,6 +62,10 @@ export class ListOfTodos extends CoList.Of(co.ref(Todo)) {}
 export class List extends CoMap {
   name = co.string;
   todos = co.ref(ListOfTodos);
+
+  get getNameWithFallback() {
+    return this.name == "" ? "Untitled List" : this.name;
+  }
 }
 
 export class ListofLists extends CoList.Of(co.ref(List)) {}
