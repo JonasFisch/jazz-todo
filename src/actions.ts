@@ -7,6 +7,7 @@ export const createList = (owner: ListManagerAccount) => {
     {
       name: "Einkaufsliste",
       todos: ListOfTodos.create([], { owner: group }),
+      getNameWithFallback: "",
     },
     { owner: group }
   );

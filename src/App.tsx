@@ -29,7 +29,7 @@ function App() {
   });
 
   return (
-    <Layout className="h-full">
+    <Layout className="h-full bg-gray-200">
       {isAppOffline && (
         <div className="fixed top-0 left-0 w-full">
           <OfflineBanner />
@@ -47,7 +47,7 @@ function App() {
                   : "!w-full !max-w-none !flex-none"
               }`}
             >
-              <Flex className="flex-col h-full justify-between bg-gray-100">
+              <Flex className="flex-col h-full justify-between bg-gray-50">
                 <div className="overflow-y-auto">
                   {me.root && (
                     <div className="p-4">
