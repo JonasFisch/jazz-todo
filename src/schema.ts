@@ -22,6 +22,7 @@ export class ListManagerAccount extends Account {
         {
           lists: ListofLists.create([], { owner: this }),
           activeList: undefined,
+          focusedTodo: undefined,
         },
         { owner: this }
       );
@@ -43,6 +44,7 @@ export class ListManagerAccount extends Account {
 export class TodoAccountRoot extends CoMap {
   lists = co.ref(ListofLists);
   activeList = co.optional.ref(List);
+  focusedTodo = co.ref(Todo, { optional: true });
 }
 
 export class Todo extends CoMap {
@@ -50,7 +52,6 @@ export class Todo extends CoMap {
   description = co.optional.string;
   checked = co.boolean;
 
-  // TODO: this could cause error!!!
   get isEmpty() {
     return this.title.match(/^\s*$/); // empty = no whitespaces or just spaces
   }

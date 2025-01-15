@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { Image } from "./Image.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
-  const newItemRef = useRef<InputRef | null>(null);
+  const lastItemRef = useRef<InputRef | null>(null);
   const [inviteOpen, setInviteOpen] = useState(false);
 
   const { me } = useAccount();
@@ -46,7 +46,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   const focusLastItem = () => {
     setTimeout(() => {
       // focus referenced item after DOM update
-      if (newItemRef.current) newItemRef.current.focus();
+      if (lastItemRef.current) lastItemRef.current.focus();
     }, 0);
   };
 
@@ -63,21 +63,25 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   const createAndAddTodo = () => {
     // otherwise build try catch around and log error message
     if (list) {
-      const group = Group.create({ owner: me });
-      try {
+      if (!lastTodo?.isEmpty) {
         const newTodo = Todo.create(
           {
             title: "",
             description: "",
             checked: false,
           },
-          { owner: group }
+          { owner: list._owner }
         );
         list?.todos?.push(newTodo);
-        if (lastTodo && !lastTodo?.isEmpty) focusLastItem();
-      } catch (error) {
-        console.log(error);
+        if (me.root) me.root.focusedTodo = newTodo;
       }
+      focusLastItem();
+    }
+  };
+
+  const removeLastEmpty = () => {
+    if (lastTodo?.isEmpty) {
+      list?.todos?.pop();
     }
   };
 
@@ -103,7 +107,6 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 icon: <EditOutlined className="ml-2" />,
                 autoSize: true,
                 maxLength: 28,
-                // editing: true,
               }}
               onEnded={(event) => {
                 event.preventDefault();
@@ -182,19 +185,28 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 (todo, index) =>
                   todo && (
                     <TodoComponent
+                      onFocused={() => {
+                        if (me.root) me.root.focusedTodo = todo;
+                      }}
+                      ref={
+                        index === (uncheckedTodos.length ?? 0) - 1
+                          ? lastItemRef
+                          : null
+                      }
                       key={todo.id}
                       todo={todo}
                       onEnterPressed={createAndAddTodo}
-                      ref={
-                        index === (uncheckedTodos.length ?? 0) - 1
-                          ? newItemRef
-                          : null
-                      }
                     />
                   )
               )}
             </div>
-            <div className="w-full flex-1" onClick={createAndAddTodo}>
+            <div
+              className="w-full flex-1"
+              onClick={() => {
+                createAndAddTodo();
+                removeLastEmpty();
+              }}
+            >
               {uncheckedTodos.length <= 0 && (
                 <div className="h-full flex flex-col justify-center">
                   <Empty></Empty>
