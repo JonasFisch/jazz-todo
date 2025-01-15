@@ -53,26 +53,32 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   // add list to users lists if needed
   useEffect(() => {
     if (
-      !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id) &&
-      list
+      list &&
+      !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id)
     ) {
       me.root?.lists?.push(list);
     }
   }, [list, me.root]);
 
   const createAndAddTodo = () => {
-    if (!lastTodo?.isEmpty())
-      list?.todos?.push(
-        Todo.create(
+    // otherwise build try catch around and log error message
+    if (list) {
+      const group = Group.create({ owner: me });
+      try {
+        const newTodo = Todo.create(
           {
             title: "",
             description: "",
             checked: false,
           },
-          { owner: list._owner }
-        )
-      );
-    focusLastItem();
+          { owner: group }
+        );
+        list?.todos?.push(newTodo);
+        if (lastTodo && !lastTodo?.isEmpty) focusLastItem();
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   if (list) {
