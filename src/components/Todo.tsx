@@ -7,8 +7,9 @@ export const TodoComponent = forwardRef<
   {
     todo: Todo;
     onEnterPressed?: () => void;
+    onFocused?: () => void;
   }
->(({ todo, onEnterPressed: onSave }, ref) => {
+>(({ todo, onEnterPressed: onSave, onFocused }, ref) => {
   return (
     <div className="flex flex-row gap-4">
       <Checkbox
@@ -33,6 +34,9 @@ export const TodoComponent = forwardRef<
             className=""
             onChange={(event) => {
               todo.title = event.target.value;
+            }}
+            onFocus={() => {
+              onFocused?.();
             }}
           />
         </form>

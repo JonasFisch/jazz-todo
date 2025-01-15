@@ -102,6 +102,7 @@ function App() {
             >
               {searchParams.get("active") ? (
                 <ListComponent
+                  key={searchParams.get("active")}
                   listID={searchParams.get("active") as ID<List>}
                 />
               ) : (
