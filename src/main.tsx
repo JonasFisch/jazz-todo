@@ -18,7 +18,6 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
         <JazzAndAuth>
-          <App />
           <Routes>
             <Route path="/" element={<App />}></Route>
           </Routes>
