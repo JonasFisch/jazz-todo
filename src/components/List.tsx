@@ -15,7 +15,7 @@ import {
   UsergroupAddOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createInviteLink, useAccount, useCoState } from "jazz-react";
 import { Account, Group, ID } from "jazz-tools";
 import { InviteModal } from "./InviteModal.tsx";
@@ -43,41 +43,27 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
     }
   };
 
-  // const focusLastItem = () => {
-  //   setTimeout(() => {
-  //     // focus referenced item after DOM update
-  //     if (newItemRef.current) newItemRef.current.focus();
-  //   }, 0);
-  // };
+  const focusLastItem = () => {
+    setTimeout(() => {
+      // focus referenced item after DOM update
+      if (newItemRef.current) newItemRef.current.focus();
+    }, 0);
+  };
 
   // add list to users lists if needed
-  // useEffect(() => {
-  //   if (
-  //     list &&
-  //     !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id)
-  //   ) {
-  //     me.root?.lists?.push(list);
-  //   }
-  // }, [list, me.root]);
+  useEffect(() => {
+    if (
+      list &&
+      !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id)
+    ) {
+      me.root?.lists?.push(list);
+    }
+  }, [list, me.root]);
 
   const createAndAddTodo = () => {
-    console.log("lastTodo", lastTodo);
-    // console.log("lastTodoosEmpty", lastTodo?.isEmpty());
-    console.log("list.todos", list?.todos);
-
     // otherwise build try catch around and log error message
     if (list) {
-      console.log("list exists");
-
       const group = Group.create({ owner: me });
-      console.log("created group");
-
-      console.log(group._raw);
-
-      console.log("after printin group._raw");
-
-      console.log(me);
-
       try {
         const newTodo = Todo.create(
           {
@@ -87,10 +73,8 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
           },
           { owner: group }
         );
-        console.log("newTodo", newTodo);
-
         list?.todos?.push(newTodo);
-        // if (lastTodo && !lastTodo?.isEmpty()) focusLastItem();
+        if (lastTodo && !lastTodo?.isEmpty) focusLastItem();
       } catch (error) {
         console.log(error);
       }
