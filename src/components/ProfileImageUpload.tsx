@@ -23,6 +23,7 @@ export function ProfileImageUpload() {
   // };
 
   const clerk = useClerk();
+  // const clerk = { user: { username: "het" } };
 
   return (
     <>

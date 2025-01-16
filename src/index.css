@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background-color: theme("colors.gray.50");
+}
+
 body {
   margin: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   font-family: "Inter";
   width: 100dvw;
-  height: 100dvh;
+  /* height: 100dvh; */
 }
 
 #root {
@@ -69,7 +74,7 @@ h1 {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: theme("colors.gray.50");
   }
   a:hover {
     color: #747bff;
@@ -80,5 +85,5 @@ h1 {
 }
 
 .ant-layout-sider {
-  background-color: white !important;
+  background-color: theme("colors.gray.50");
 }

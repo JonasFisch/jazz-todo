@@ -6,9 +6,11 @@ import { useState } from "react";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { useClerk } from "@clerk/clerk-react";
 
-export function Header() {
+export function AccountSettings() {
   const { me } = useAccount();
+
   const { signOut } = useClerk();
+  // const signOut = (obj: { redirectUrl: string }) => {};
   const [profileModalOpen, setProfileImageOpen] = useState<boolean>(false);
   const items: MenuProps["items"] = [
     {
@@ -32,7 +34,7 @@ export function Header() {
     },
   ];
   return (
-    <div className="border-b p-4 flex flex-row justify-end items-center mx-2">
+    <>
       <Dropdown menu={{ items }} placement="bottomRight" trigger={["click"]}>
         <Avatar
           onClick={(e) => e?.preventDefault()}
@@ -56,6 +58,6 @@ export function Header() {
       >
         <ProfileImageUpload />
       </Modal>
-    </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
-import { Button, Col, Drawer, Empty, Row, Typography } from "antd";
+import { Button, Col, Drawer, Empty, InputRef, Row, Typography } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useCoState } from "jazz-react";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ListSettings } from "./ListSettings.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
-  const lastItemRef = useRef<HTMLDivElement | null>(null);
+  const lastItemRef = useRef<InputRef | null>(null);
   const [showListSettings, setShowListSettings] = useState(false);
 
   const { me } = useAccount();
@@ -24,7 +24,10 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       // focus referenced item after DOM update
       if (lastItemRef.current) {
         lastItemRef.current.focus();
-        lastItemRef.current.scrollIntoView({ behavior: "smooth" });
+        lastItemRef.current.select();
+        // lastItemRef.current.scrollIntoView({
+        //   behavior: "smooth",
+        // });
       }
     }, 0);
   };
@@ -66,8 +69,11 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
 
   if (list) {
     return (
-      <Row className="flex flex-col h-full gap-2 flex-nowrap w-full py-4">
-        <Col flex={"none"}>
+      <Row className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
+        <Col
+          flex={"none"}
+          className="sticky top-0 bg-gradient-to-b from-gray-50/100 to-gray-50/80 pt-4 z-50 border-b"
+        >
           <div className="flex flex-row justify-between items-start">
             <div className="flex flex-col justify-start items-start">
               <Button
@@ -99,52 +105,50 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             </div>
           </div>
         </Col>
-        <Col flex={"auto"} className="overflow-y-auto">
-          <div className="flex flex-col gap-0 h-full">
+        <Col flex={"auto"} className="flex flex-col">
+          <div className="flex flex-col gap-0 flex-1">
             <div className="flex flex-col gap-4">
               {uncheckedTodos.map(
                 (todo, index) =>
                   todo && (
-                    <div
+                    <TodoComponent
+                      onFocused={() => {
+                        if (me.root) me.root.focusedTodo = todo;
+                      }}
+                      key={todo.id}
+                      todo={todo}
+                      onEnterPressed={createAndAddTodo}
                       ref={
                         index === (uncheckedTodos.length ?? 0) - 1
                           ? lastItemRef
                           : null
                       }
-                    >
-                      <TodoComponent
-                        onFocused={() => {
-                          if (me.root) me.root.focusedTodo = todo;
-                        }}
-                        key={todo.id}
-                        todo={todo}
-                        onEnterPressed={createAndAddTodo}
-                      />
-                    </div>
+                    />
                   )
               )}
             </div>
             <div
-              className="w-full flex-1"
+              className="w-full flex-1 flex flex-col"
               onClick={() => {
                 createAndAddTodo();
                 removeLastEmpty();
               }}
             >
               {uncheckedTodos.length <= 0 && (
-                <div className="h-full flex flex-col justify-center">
+                <div className="h-auto flex flex-col justify-center flex-1">
                   <Empty></Empty>
                 </div>
               )}
             </div>
           </div>
         </Col>
-        <Col flex={"none"}>
-          <div className="pt-4 pb-2 flex flex-row justify-end">
-            <Button onClick={createAndAddTodo} size="large">
-              Create Todo
-            </Button>
-          </div>
+        <Col
+          flex={"none"}
+          className="sticky bottom-4 right-0 w-auto mr-0 ml-auto"
+        >
+          <Button onClick={createAndAddTodo} size="large">
+            Create Todo
+          </Button>
         </Col>
       </Row>
     );

@@ -10,7 +10,7 @@ import { List } from "./schema";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ID } from "jazz-tools";
 import { useAcceptInvite, useAccount } from "jazz-react";
-import { Header } from "./components/Header";
+// import { AccountSettings } from "./components/Header";
 
 function App() {
   const { me } = useAccount();
@@ -29,15 +29,19 @@ function App() {
   });
 
   return (
-    <Layout className="h-full bg-gray-200">
+    <Layout className="bg-gray-200">
       {isAppOffline && (
         <div className="fixed top-0 left-0 w-full">
           <OfflineBanner />
         </div>
       )}
       <Content className="flex flex-row w-full justify-center items-center sm:p-4">
-        <Layout className="max-w-4xl h-full sm:h-[80%] rounded-md overflow-hidden bg-gray-50">
-          <Header />
+        <Layout className="max-w-4xl rounded-md bg-gray-50">
+          {/* {!searchParams.get("active") && (
+            <header className="border-b p-4 flex flex-row justify-end items-center mx-2">
+              <AccountSettings />
+            </header>
+          )} */}
           <Layout className="bg-gray-50">
             <Sider
               width={200}
@@ -47,20 +51,20 @@ function App() {
                   : "!w-full !max-w-none !flex-none"
               }`}
             >
-              <Flex className="flex-col h-full justify-between bg-gray-50">
-                <div className="overflow-y-auto">
+              <Flex className="flex-col justify-between bg-gray-50">
+                <div className="">
                   {me.root && (
                     <div className="p-4">
                       <div className="py-4 text-xl font-bold">
                         <Typography.Title level={4}>My Lists</Typography.Title>
                       </div>
-                      <div className="flex flex-col gap-0 rounded-md overflow-hidden">
+                      <div className="flex flex-col gap-0 rounded-md ">
                         {me.root?.lists
                           ?.filter((list) => !!list)
                           .map((list) => (
                             <div
                               key={list.id}
-                              className={`w-full bg-white px-2 py-4 border-b-[2px] border-gray-100 cursor-pointer ${
+                              className={`w-full px-2 py-4 bg-white border-b-[2px] border-gray-100 cursor-pointer ${
                                 me.root?.lists?.indexOf(list) ===
                                 (me.root?.lists?.length ?? 0) - 1
                                   ? "border-none"
@@ -100,7 +104,7 @@ function App() {
             </Sider>
             <Content
               style={{ padding: "0 24px", minHeight: 280 }}
-              className={`overflow-y-auto sm:block ${
+              className={`sm:block ${
                 searchParams.get("active") ? null : "hidden"
               }`}
             >
