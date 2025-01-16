@@ -1,6 +1,6 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
-import { Button, Col, Drawer, Empty, InputRef, Row, Typography } from "antd";
+import { Button, Col, Drawer, Empty, Row, Typography } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useCoState } from "jazz-react";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ListSettings } from "./ListSettings.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
-  const lastItemRef = useRef<InputRef | null>(null);
+  const lastItemRef = useRef<HTMLDivElement | null>(null);
   const [showListSettings, setShowListSettings] = useState(false);
 
   const { me } = useAccount();
@@ -22,7 +22,10 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   const focusLastItem = () => {
     setTimeout(() => {
       // focus referenced item after DOM update
-      if (lastItemRef.current) lastItemRef.current.focus();
+      if (lastItemRef.current) {
+        lastItemRef.current.focus();
+        lastItemRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     }, 0);
   };
 
@@ -102,19 +105,22 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
               {uncheckedTodos.map(
                 (todo, index) =>
                   todo && (
-                    <TodoComponent
-                      onFocused={() => {
-                        if (me.root) me.root.focusedTodo = todo;
-                      }}
+                    <div
                       ref={
                         index === (uncheckedTodos.length ?? 0) - 1
                           ? lastItemRef
                           : null
                       }
-                      key={todo.id}
-                      todo={todo}
-                      onEnterPressed={createAndAddTodo}
-                    />
+                    >
+                      <TodoComponent
+                        onFocused={() => {
+                          if (me.root) me.root.focusedTodo = todo;
+                        }}
+                        key={todo.id}
+                        todo={todo}
+                        onEnterPressed={createAndAddTodo}
+                      />
+                    </div>
                   )
               )}
             </div>
