@@ -32,7 +32,7 @@ export function ListSettings({ list }: { list: List }) {
   return (
     <div>
       <section>
-        <Typography.Title level={5} mark>
+        <Typography.Title level={5} className="bg-amber-200 inline">
           &nbsp; Title &nbsp;
         </Typography.Title>
         <Input
@@ -45,7 +45,7 @@ export function ListSettings({ list }: { list: List }) {
       <Divider />
       <section>
         <div className="flex flex-row justify-between items-start">
-          <Typography.Title level={5} mark>
+          <Typography.Title level={5} className="bg-amber-200 inline">
             &nbsp; Members &nbsp;
           </Typography.Title>
         </div>

@@ -72,7 +72,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       <Row className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
         <Col
           flex={"none"}
-          className="sticky top-0 bg-gradient-to-b from-gray-50/100 to-gray-50/80 pt-4 z-50 border-b"
+          className="sticky top-0 bg-gradient-to-b from-gray-50/100 to-gray-50/80 backdrop-blur-[2px] pt-4 z-50 border-b"
         >
           <div className="flex flex-row justify-between items-start">
             <div className="flex flex-col justify-start items-start">
@@ -95,7 +95,11 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 <SettingOutlined className="text-xl" />
               </Button>
               <Drawer
-                title="Settings"
+                title={
+                  <Typography.Title level={4} className="!mb-0 ml-2">
+                    List settings
+                  </Typography.Title>
+                }
                 open={showListSettings}
                 width={720}
                 onClose={() => setShowListSettings(false)}

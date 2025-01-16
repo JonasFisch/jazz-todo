@@ -10,6 +10,7 @@ import { List } from "./schema";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ID } from "jazz-tools";
 import { useAcceptInvite, useAccount } from "jazz-react";
+import { AccountSettings } from "./components/Header";
 // import { AccountSettings } from "./components/Header";
 
 function App() {
@@ -29,13 +30,13 @@ function App() {
   });
 
   return (
-    <Layout className="bg-gray-200">
+    <Layout className="bg-gray-100">
       {isAppOffline && (
         <div className="fixed top-0 left-0 w-full">
           <OfflineBanner />
         </div>
       )}
-      <Content className="flex flex-row w-full justify-center items-center sm:p-4">
+      <Content className="flex flex-row w-full justify-center items-center">
         <Layout className="max-w-4xl rounded-md bg-gray-50">
           {/* {!searchParams.get("active") && (
             <header className="border-b p-4 flex flex-row justify-end items-center mx-2">
@@ -51,12 +52,16 @@ function App() {
                   : "!w-full !max-w-none !flex-none"
               }`}
             >
-              <Flex className="flex-col justify-between bg-gray-50">
-                <div className="">
+              <Flex className="flex-col justify-between bg-gray-50 min-h-dvh">
+                <div className="flex flex-col">
                   {me.root && (
-                    <div className="p-4">
-                      <div className="py-4 text-xl font-bold">
-                        <Typography.Title level={4}>My Lists</Typography.Title>
+                    <div className="px-4">
+                      {/* TODO: put sticky and the gradient and backdrop logic in extra component */}
+                      <div className="flex flex-row justify-between items-center mb-4 py-4 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-gray-50/100 to-gray-50/80 border-b">
+                        <Typography.Title level={3} className="!mb-0">
+                          My Lists
+                        </Typography.Title>
+                        <AccountSettings />
                       </div>
                       <div className="flex flex-col gap-0 rounded-md ">
                         {me.root?.lists
@@ -84,7 +89,7 @@ function App() {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-row justify-center p-4 mb-2">
+                <div className="flex flex-row justify-center p-4 sticky bottom-0">
                   <Button
                     icon={<PlusCircleOutlined />}
                     size="large"
