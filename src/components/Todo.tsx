@@ -31,7 +31,7 @@ export const TodoComponent = forwardRef<
             placeholder=""
             variant="borderless"
             value={todo.title}
-            className=""
+            spellCheck={false}
             onChange={(event) => {
               todo.title = event.target.value;
             }}

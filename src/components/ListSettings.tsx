@@ -33,7 +33,7 @@ export function ListSettings({ list }: { list: List }) {
     <div>
       <section>
         <Typography.Title level={5} className="bg-amber-200 inline">
-          &nbsp; Title &nbsp;
+          &nbsp;Title&nbsp;
         </Typography.Title>
         <Input
           value={list.name}
@@ -46,7 +46,7 @@ export function ListSettings({ list }: { list: List }) {
       <section>
         <div className="flex flex-row justify-between items-start">
           <Typography.Title level={5} className="bg-amber-200 inline">
-            &nbsp; Members &nbsp;
+            &nbsp;Members&nbsp;
           </Typography.Title>
         </div>
         <div className="flex flex-col gap-4 pt-4">

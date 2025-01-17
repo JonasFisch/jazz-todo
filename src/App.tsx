@@ -55,15 +55,15 @@ function App() {
               <Flex className="flex-col justify-between bg-gray-50 min-h-dvh">
                 <div className="flex flex-col">
                   {me.root && (
-                    <div className="px-4">
+                    <div>
                       {/* TODO: put sticky and the gradient and backdrop logic in extra component */}
-                      <div className="flex flex-row justify-between items-center mb-4 pt-4 pb-3 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-gray-50/100 to-gray-50/80 border-b">
+                      <div className="flex flex-row justify-between items-center mb-4 pt-4 pb-3 px-4 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-gray-50/100 to-gray-50/80 border-b">
                         <Typography.Title level={3} className="!mb-0">
                           My Lists
                         </Typography.Title>
                         <AccountSettings />
                       </div>
-                      <div className="flex flex-col gap-0 rounded-md shadow-md overflow-hidden">
+                      <div className="flex flex-col gap-0 rounded-md shadow-md overflow-hidden mx-4">
                         {me.root?.lists
                           ?.filter((list) => !!list)
                           .map((list) => (
@@ -113,13 +113,11 @@ function App() {
                 searchParams.get("active") ? null : "hidden"
               }`}
             >
-              {searchParams.get("active") ? (
+              {searchParams.get("active") && (
                 <ListComponent
                   key={searchParams.get("active")}
                   listID={searchParams.get("active") as ID<List>}
                 />
-              ) : (
-                <div>select a list or create a new one</div>
               )}
             </Content>
           </Layout>
