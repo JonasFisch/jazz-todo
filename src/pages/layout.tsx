@@ -15,7 +15,7 @@ export function RootLayout() {
     invitedObjectSchema: List,
     onAccept: async (listID) => {
       const newList = await List.load(listID, me, []);
-      if (newList) navigate(`/?active=${listID}`);
+      if (newList) navigate(`/list/${listID}`);
       else console.error("error in after invite accept action");
     },
     forValueHint: "list",
