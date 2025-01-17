@@ -57,13 +57,13 @@ function App() {
                   {me.root && (
                     <div className="px-4">
                       {/* TODO: put sticky and the gradient and backdrop logic in extra component */}
-                      <div className="flex flex-row justify-between items-center mb-4 py-4 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-gray-50/100 to-gray-50/80 border-b">
+                      <div className="flex flex-row justify-between items-center mb-4 pt-4 pb-3 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-gray-50/100 to-gray-50/80 border-b">
                         <Typography.Title level={3} className="!mb-0">
                           My Lists
                         </Typography.Title>
                         <AccountSettings />
                       </div>
-                      <div className="flex flex-col gap-0 rounded-md ">
+                      <div className="flex flex-col gap-0 rounded-md shadow-md overflow-hidden">
                         {me.root?.lists
                           ?.filter((list) => !!list)
                           .map((list) => (

@@ -85,7 +85,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                 &larr; back
               </Button>
               <div className="flex flex-row justify-between items-start">
-                <Typography.Title level={3} className="mt-[1px]">
+                <Typography.Title level={3}>
                   {list.getNameWithFallback}
                 </Typography.Title>
               </div>

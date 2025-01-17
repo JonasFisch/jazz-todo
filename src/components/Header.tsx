@@ -39,7 +39,7 @@ export function AccountSettings() {
         <Avatar
           onClick={(e) => e?.preventDefault()}
           // onClick={() => setProfileImageOpen(true)}
-          size="large"
+          size="default"
           icon={
             me.profile?.image ? (
               <Image image={me.profile.image}></Image>
