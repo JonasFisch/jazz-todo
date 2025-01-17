@@ -1,7 +1,8 @@
 import { DemoAuthBasicUI, JazzProvider, useDemoAuth } from "jazz-react";
 import { ListManagerAccount } from "./schema.ts";
 import { useJazzClerkAuth } from "jazz-react-auth-clerk";
-import { SignInButton, useClerk } from "@clerk/clerk-react";
+import { useClerk } from "@clerk/clerk-react";
+import { LandingPage } from "./pages/landing-page.tsx";
 
 export function JazzAndAuth({ children }: { children: React.ReactNode }) {
   const clerk = useClerk();
@@ -18,7 +19,7 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
           {children}
         </JazzProvider>
       ) : (
-        <SignInButton />
+        <LandingPage />
       )}
     </>
   );
