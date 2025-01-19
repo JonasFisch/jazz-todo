@@ -1,8 +1,9 @@
 import { DemoAuthBasicUI, JazzProvider, useDemoAuth } from "jazz-react";
 import { ListManagerAccount } from "./schema.ts";
 import { useJazzClerkAuth } from "jazz-react-auth-clerk";
-import { useClerk } from "@clerk/clerk-react";
+import { ClerkLoaded, ClerkLoading, useClerk } from "@clerk/clerk-react";
 import { LandingPage } from "./pages/landing-page.tsx";
+import { Spin } from "antd";
 
 export function JazzAndAuth({ children }: { children: React.ReactNode }) {
   const clerk = useClerk();
@@ -10,17 +11,24 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {clerk.user && auth ? (
-        <JazzProvider
-          auth={auth}
-          AccountSchema={ListManagerAccount}
-          peer={import.meta.env.VITE_JAZZ_PEER}
-        >
-          {children}
-        </JazzProvider>
-      ) : (
-        <LandingPage />
-      )}
+      <ClerkLoading>
+        <div className="h-dvh w-full flex justify-center items-center">
+          <Spin delay={0.5} />
+        </div>
+      </ClerkLoading>
+      <ClerkLoaded>
+        {auth && clerk.user ? (
+          <JazzProvider
+            auth={auth}
+            AccountSchema={ListManagerAccount}
+            peer={import.meta.env.VITE_JAZZ_PEER}
+          >
+            {children}
+          </JazzProvider>
+        ) : (
+          <LandingPage />
+        )}
+      </ClerkLoaded>
     </>
   );
 }
