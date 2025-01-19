@@ -35,8 +35,6 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
 
 export function JazzAndAuthLocal({ children }: { children: React.ReactNode }) {
   const [auth, authState] = useDemoAuth();
-  console.log("in local jazz auth");
-
   return (
     <>
       {auth && (

@@ -1,6 +1,5 @@
 import { SignInButton } from "@clerk/clerk-react";
 import { Button, Tag, Typography } from "antd";
-import { useJazzClerkAuth } from "jazz-react-auth-clerk";
 
 export function LandingPage() {
   return (
