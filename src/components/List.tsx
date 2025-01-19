@@ -7,6 +7,7 @@ import { useAccount, useCoState } from "jazz-react";
 import { ID } from "jazz-tools";
 import { useNavigate } from "react-router-dom";
 import { ListSettings } from "./ListSettings.tsx";
+import { AnimatePresence, motion } from "motion/react";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
   const lastItemRef = useRef<InputRef | null>(null);
@@ -111,24 +112,32 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       <Col flex={"auto"} className="flex flex-col">
         <div className="flex flex-col gap-0 flex-1">
           <div className="flex flex-col gap-4">
-            {uncheckedTodos.map(
-              (todo, index) =>
-                todo && (
-                  <TodoComponent
-                    onFocused={() => {
-                      if (me.root) me.root.focusedTodo = todo;
-                    }}
-                    key={todo.id}
-                    todo={todo}
-                    onEnterPressed={createAndAddTodo}
-                    ref={
-                      index === (uncheckedTodos.length ?? 0) - 1
-                        ? lastItemRef
-                        : null
-                    }
-                  />
-                )
-            )}
+            <AnimatePresence>
+              {uncheckedTodos.map(
+                (todo, index) =>
+                  todo && (
+                    <motion.div
+                      key={`todo-motion-${todo.id}`}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <TodoComponent
+                        onFocused={() => {
+                          if (me.root) me.root.focusedTodo = todo;
+                        }}
+                        key={todo.id}
+                        todo={todo}
+                        onEnterPressed={createAndAddTodo}
+                        ref={
+                          index === (uncheckedTodos.length ?? 0) - 1
+                            ? lastItemRef
+                            : null
+                        }
+                      />
+                    </motion.div>
+                  )
+              )}
+            </AnimatePresence>
           </div>
           <div
             className="w-full flex-1 flex flex-col"
