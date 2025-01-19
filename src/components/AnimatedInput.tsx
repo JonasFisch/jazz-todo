@@ -21,6 +21,8 @@ export function AnimatedInput(
       { opacity: showBox, scale: showBox },
       { bounce: 0.3 }
     );
+
+    console.log("checked: ", props.checked);
   }, [animate, props.checked]);
 
   return (
@@ -58,9 +60,15 @@ export function AnimatedInput(
       >
         <CheckOutlined />
       </motion.label>
-      {/* ) : null} */}
-      {/* </AnimatePresence> */}
-      <input {...props} type="checkbox" hidden />
+      <input
+        {...props}
+        type="checkbox"
+        hidden
+        onChange={(event) => {
+          props.onChange?.(event);
+          console.log("changed", event.target.checked);
+        }}
+      />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export const TodoComponent = forwardRef<
       <AnimatedInput
         id={`todo-checkbox-${todo.id}`}
         onChange={(event) => {
-          setChecked(true);
+          setChecked(event.target.checked);
           todo.checked = event.target.checked;
         }}
         checked={checked}
