@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 export function ListPage() {
   const { id } = useParams<{ id: string }>();
   return (
-    <Content style={{ padding: "0 24px", minHeight: 280 }}>
+    <Content style={{ padding: "0 0", minHeight: 280 }}>
       {id && <ListComponent key={id} listID={id as ID<List>} />}
     </Content>
   );

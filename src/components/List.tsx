@@ -1,7 +1,7 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
 import { Button, Col, Drawer, Empty, InputRef, Row, Typography } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
+import { CloseOutlined, SettingOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useCoState } from "jazz-react";
 import { ID } from "jazz-tools";
@@ -70,23 +70,23 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
 
   return (
     <Row className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
-      <Col
-        flex={"none"}
-        className="sticky top-0 bg-gradient-to-b from-gray-50/100 to-gray-50/80 backdrop-blur-[2px] pt-4 z-50 border-b"
-      >
+      {/* TODO: put this in seperate component with two slots for header and body */}
+      <div className="px-6 sticky top-0 bg-gradient-to-b from-bgPrimary/100 to-bgPrimary/80 backdrop-blur-lg pt-4 z-50 border-b border-bgSecondary dark:border-bgSecondaryDark">
         <div className="flex flex-row justify-between items-start">
           <div className="flex flex-col justify-start items-start">
             <Button
               onClick={() => navigate("/", {})}
               type="text"
               size="middle"
-              className="text-gray-400 block pl-0"
+              className="text-tBase dark:text-tBaseDark block pl-0"
             >
               &larr; back
             </Button>
             <div className="flex flex-row justify-between items-start">
               <Typography.Title level={3}>
-                {list && list.getNameWithFallback}
+                <span className="text-tBase dark:text-tBaseDark">
+                  {list && list.getNameWithFallback}
+                </span>
               </Typography.Title>
             </div>
           </div>
@@ -95,10 +95,18 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
               <SettingOutlined className="text-xl" />
             </Button>
             <Drawer
+              className="!bg-bgPrimary dark:!bg-bgPrimaryDark"
               title={
-                <Typography.Title level={4} className="!mb-0 ml-2">
-                  List settings
+                <Typography.Title level={4} className="!mb-0 ml-2 ">
+                  <span className="text-tBase dark:text-tBaseDark">
+                    List settings
+                  </span>
                 </Typography.Title>
+              }
+              closeIcon={
+                <CloseOutlined className="text-tBase dark:text-tBaseDark">
+                  {" "}
+                </CloseOutlined>
               }
               open={showListSettings}
               width={720}
@@ -108,8 +116,8 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             </Drawer>
           </div>
         </div>
-      </Col>
-      <Col flex={"auto"} className="flex flex-col">
+      </div>
+      <Col flex={"auto"} className="flex flex-col px-6">
         <div className="flex flex-col gap-0 flex-1">
           <div className="flex flex-col gap-4">
             <AnimatePresence>
@@ -158,7 +166,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
         flex={"none"}
         className="sticky bottom-4 right-0 w-auto mr-0 ml-auto"
       >
-        <Button onClick={createAndAddTodo} size="large">
+        <Button onClick={createAndAddTodo} size="large" className="mx-6">
           Create Todo
         </Button>
       </Col>

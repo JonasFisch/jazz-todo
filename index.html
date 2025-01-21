@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, interactive-widget=resizes-content" />
+    <script>
+      // detect theme on load
+      document.documentElement.classList.toggle(
+        'dark',
+        localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      )
+    </script>
     <title>Jonas Todos</title>
   </head>
   <body>

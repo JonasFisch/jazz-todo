@@ -33,11 +33,11 @@ export function ListSettings({ list }: { list: List }) {
     <div>
       <section>
         <Typography.Title level={5} className="bg-amber-200 inline">
-          &nbsp;Title&nbsp;
+          <span className="text-tBase">&nbsp;Title&nbsp;</span>
         </Typography.Title>
         <Input
           value={list.name}
-          className="bg-gray-200 text-center mt-4"
+          className="bg-bgSecondary dark:bg-bgSecondaryDark text-center mt-4 text-tBase dark:text-tBaseDark"
           onChange={(event) => (list.name = event.target.value)}
           placeholder="List Title"
         />
@@ -46,7 +46,7 @@ export function ListSettings({ list }: { list: List }) {
       <section>
         <div className="flex flex-row justify-between items-start">
           <Typography.Title level={5} className="bg-amber-200 inline">
-            &nbsp;Members&nbsp;
+            <span className="text-tBase">&nbsp;Members&nbsp;</span>
           </Typography.Title>
         </div>
         <div className="flex flex-col gap-4 pt-4">
