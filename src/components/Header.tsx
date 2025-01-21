@@ -1,115 +1,116 @@
-import {
-  Avatar,
-  Divider,
-  Dropdown,
-  MenuProps,
-  Modal,
-  Radio,
-  Typography,
-} from "antd";
 import { ProfileImageUpload } from "./ProfileImageUpload";
 import { Image } from "./Image";
 import { useAccount } from "jazz-react";
 import { useState } from "react";
-import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { useClerk } from "@clerk/clerk-react";
 import { useDarkMode } from "../hooks/use-dark-mode";
 import { useTheme } from "../hooks/use-theme";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { LogOut, User, UserCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
+import { TypographyHeading } from "./ui/typography/heading";
+import { Avatar } from "./ui/avatar";
+import { Separator } from "./ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Label } from "./ui/label";
 
-export function AccountSettings() {
+export function Header() {
   const { me } = useAccount();
-  // TODO: put this into seperate context
-  // className={`theme-${theme}`} then apply with this
-  const { theme, setTheme } = useTheme();
-  const themes = ["blue", "orange", "classic"];
+  const { theme, setTheme, availableThemes } = useTheme();
   const { darkMode, setDarkMode } = useDarkMode();
 
   const { signOut } = useClerk();
-  // const signOut = (obj: { redirectUrl: string }) => {};
   const [profileModalOpen, setProfileImageOpen] = useState<boolean>(false);
-  const items: MenuProps["items"] = [
-    {
-      key: "header-dropdown-1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setProfileImageOpen(true)}
-        >
-          Profile
-        </a>
-      ),
-      icon: <UserOutlined />,
-    },
-    {
-      key: "header-dropdown-2",
-      danger: true,
-      label: <a onClick={() => signOut({ redirectUrl: "/" })}>Logout</a>,
-      icon: <LogoutOutlined />,
-    },
-  ];
 
   return (
     <>
-      <Dropdown menu={{ items }} placement="bottomRight" trigger={["click"]}>
-        <Avatar
-          onClick={(e) => e?.preventDefault()}
-          size="default"
-          icon={
-            me.profile?.image ? (
-              <Image image={me.profile.image}></Image>
-            ) : (
-              <UserOutlined />
-            )
-          }
-          className="cursor-pointer hover:opacity-85"
-        />
-      </Dropdown>
-      <Modal
-        open={profileModalOpen}
-        onCancel={() => setProfileImageOpen(false)}
-        onOk={() => setProfileImageOpen(false)}
-      >
-        <Typography.Title level={3}>Profile</Typography.Title>
-        <ProfileImageUpload />
-
-        <Divider />
-        <div>
-          <Typography.Title level={3}>Settings</Typography.Title>
-
-          <div className="mb-3">
-            <label>Dark Mode</label>
-            <div className="flex gap-2">
-              <Radio.Group
-                value={darkMode}
-                onChange={(event) => setDarkMode(event.target.value)}
-              >
-                {["light", "dark", "auto"].map((value) => (
-                  <Radio.Button key={value} value={value}>
-                    {value}
-                  </Radio.Button>
-                ))}
-              </Radio.Group>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Avatar>
+            <div className="cursor-pointer hover:opacity-85 h-10 w-10">
+              {me.profile?.image ? (
+                <Image image={me.profile?.image} />
+              ) : (
+                <UserCircle />
+              )}
             </div>
-          </div>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56">
+          {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator /> */}
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => setProfileImageOpen(true)}>
+              <User />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut({ redirectUrl: "/" })}>
+              <LogOut className="text-destructive" />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <>
+        <Dialog
+          open={profileModalOpen}
+          onOpenChange={(open) => {
+            setProfileImageOpen(open);
+          }}
+        >
+          <DialogContent>
+            <DialogTitle>Profile</DialogTitle>
+            <ProfileImageUpload />
 
-          <div className="mb-3">
-            <label>Theme</label>
-            <div className="flex gap-2">
-              <Radio.Group
-                value={theme}
-                onChange={(event) => setTheme(event.target.value)}
-              >
-                {themes.map((value) => (
-                  <Radio.Button key={value} value={value}>
-                    {value}
-                  </Radio.Button>
-                ))}
-              </Radio.Group>
+            <Separator />
+            <div>
+              <TypographyHeading level={4}>Settings</TypographyHeading>
+
+              <div className="mb-3">
+                <Label htmlFor="dark-mode-select">Dark Mode</Label>
+                <Select onValueChange={setDarkMode} value={darkMode}>
+                  <SelectTrigger id="dark-mode-select" className="w-[180px]">
+                    <SelectValue placeholder="Theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="auto">System</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="mb-3">
+                <Label htmlFor="theme-select">Theme</Label>
+                <Select onValueChange={setTheme} value={theme}>
+                  <SelectTrigger id="theme-select" className="w-[180px]">
+                    <SelectValue placeholder="Theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableThemes.map((value) => (
+                      <SelectItem key={value} value={value}>
+                        {value}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-          </div>
-        </div>
-      </Modal>
+          </DialogContent>
+        </Dialog>
+      </>
     </>
   );
 }

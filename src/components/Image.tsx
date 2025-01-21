@@ -4,7 +4,7 @@ import { ImageDefinition } from "jazz-tools";
 export function Image({ image }: { image: ImageDefinition }) {
   return (
     <ProgressiveImg image={image}>
-      {({ src }) => <img src={src} />}
+      {({ src }) => <img style={{ height: "100%", width: "100%" }} src={src} />}
     </ProgressiveImg>
   );
 }

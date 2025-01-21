@@ -1,10 +1,10 @@
-import { Input, InputRef } from "antd";
 import { Todo } from "../schema";
 import { forwardRef, useState } from "react";
 import { AnimatedInput } from "./AnimatedInput";
+import { Input } from "./ui/input";
 
 export const TodoComponent = forwardRef<
-  InputRef,
+  HTMLInputElement,
   {
     todo: Todo;
     onEnterPressed?: () => void;
@@ -31,22 +31,24 @@ export const TodoComponent = forwardRef<
           }}
         >
           <Input
-            ref={ref}
             type="text"
             placeholder=""
-            variant="borderless"
+            ref={ref}
             value={todo.title}
             spellCheck={false}
             onChange={(event) => {
               todo.title = event.target.value;
             }}
-            className={`text-tBase dark:text-tBaseDark ${
+            className={`border-0 bg-transparent text-tBase dark:text-tBaseDark ${
               todo.checked ? "line-through" : ""
             }`}
             onFocus={() => {
               onFocused?.();
             }}
           />
+          {/* <Input
+            
+          /> */}
         </form>
       </div>
     </div>

@@ -1,16 +1,19 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
-import { Button, Col, Drawer, Empty, InputRef, Row, Typography } from "antd";
-import { CloseOutlined, SettingOutlined } from "@ant-design/icons";
+import { Drawer, Empty } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 import { useEffect, useRef, useState } from "react";
 import { useAccount, useCoState } from "jazz-react";
 import { ID } from "jazz-tools";
 import { useNavigate } from "react-router-dom";
 import { ListSettings } from "./ListSettings.tsx";
 import { AnimatePresence, motion } from "motion/react";
+import { Button } from "./ui/button.tsx";
+import { TypographyHeading } from "./ui/typography/heading.tsx";
+import { Settings } from "lucide-react";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
-  const lastItemRef = useRef<InputRef | null>(null);
+  const lastItemRef = useRef<HTMLInputElement | null>(null);
   const [showListSettings, setShowListSettings] = useState(false);
 
   const { me } = useAccount();
@@ -69,39 +72,39 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   };
 
   return (
-    <Row className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
+    <div className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
       {/* TODO: put this in seperate component with two slots for header and body */}
-      <div className="px-6 sticky top-0 bg-gradient-to-b from-bgPrimary/100 to-bgPrimary/80 backdrop-blur-lg pt-4 z-50 border-b border-bgSecondary dark:border-bgSecondaryDark">
+      <div className="px-6 py-2 sticky top-0 bg-gradient-to-b from-bgPrimary/100 to-bgPrimary/80 backdrop-blur-lg pt-4 z-50 border-b border-bgSecondary dark:border-bgSecondaryDark">
         <div className="flex flex-row justify-between items-start">
           <div className="flex flex-col justify-start items-start">
             <Button
+              size={"icon"}
               onClick={() => navigate("/", {})}
-              type="text"
-              size="middle"
+              variant={"link"}
               className="text-tBase dark:text-tBaseDark block pl-0"
             >
               &larr; back
             </Button>
             <div className="flex flex-row justify-between items-start">
-              <Typography.Title level={3}>
+              <TypographyHeading level={3}>
                 <span className="text-tBase dark:text-tBaseDark">
                   {list && list.getNameWithFallback}
                 </span>
-              </Typography.Title>
+              </TypographyHeading>
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <Button onClick={() => setShowListSettings(true)}>
-              <SettingOutlined className="text-xl" />
+              <Settings className="text-xl" />
             </Button>
             <Drawer
               className="!bg-bgPrimary dark:!bg-bgPrimaryDark"
               title={
-                <Typography.Title level={4} className="!mb-0 ml-2 ">
+                <TypographyHeading level={4} className="!mb-0 ml-2 ">
                   <span className="text-tBase dark:text-tBaseDark">
                     List settings
                   </span>
-                </Typography.Title>
+                </TypographyHeading>
               }
               closeIcon={
                 <CloseOutlined className="text-tBase dark:text-tBaseDark">
@@ -117,7 +120,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
           </div>
         </div>
       </div>
-      <Col flex={"auto"} className="flex flex-col px-6">
+      <div className="flex-auto flex flex-col px-6">
         <div className="flex flex-col gap-0 flex-1">
           <div className="flex flex-col gap-4">
             <AnimatePresence>
@@ -161,15 +164,12 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             )}
           </div>
         </div>
-      </Col>
-      <Col
-        flex={"none"}
-        className="sticky bottom-4 right-0 w-auto mr-0 ml-auto"
-      >
-        <Button onClick={createAndAddTodo} size="large" className="mx-6">
+      </div>
+      <div className="flex-none sticky bottom-4 right-0 w-auto mr-0 ml-auto">
+        <Button onClick={createAndAddTodo} className="mx-6">
           Create Todo
         </Button>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
