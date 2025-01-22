@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAnimate, motion } from "motion/react";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckIcon } from "lucide-react";
 
 export function AnimatedInput(
   props: React.InputHTMLAttributes<HTMLInputElement> & { id: string }
@@ -37,7 +37,7 @@ export function AnimatedInput(
           boxShadow: "none",
           borderRadius: 3,
         }}
-        className="bg-gray-300"
+        className="bg-transparent border-foreground border-1 border-solid border"
       />
       <motion.label
         id="check-circle"
@@ -56,7 +56,7 @@ export function AnimatedInput(
           alignItems: "center",
         }}
       >
-        <CheckOutlined />
+        <CheckIcon />
       </motion.label>
       <input
         {...props}

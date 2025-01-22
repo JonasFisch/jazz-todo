@@ -7,6 +7,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RootLayout } from "./pages/layout.tsx";
 import { HomePage } from "./pages/home-page.tsx";
 import { ListPage } from "./pages/lists-page.tsx";
+import { DarkModeProvider } from "./context/dark-mode-context.tsx";
+import { ThemeProvider } from "./context/theme-context.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -17,25 +20,22 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      {/* {import.meta.env.MODE === "development" ? (
-        <JazzAndAuthLocal>
-          <Routes>
-            <Route path="/" element={<App />}></Route>
-          </Routes>
-        </JazzAndAuthLocal>
-      ) : ( */}
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-        <JazzAndAuth>
-          <Routes>
-            <Route path="/" element={<RootLayout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/list/:id" element={<ListPage />} />
-            </Route>
-          </Routes>
-        </JazzAndAuth>
-      </ClerkProvider>
-      {/* )} */}
-    </BrowserRouter>
+    <DarkModeProvider>
+      <ThemeProvider>
+        <BrowserRouter>
+          <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+            <JazzAndAuth>
+              <Routes>
+                <Route path="/" element={<RootLayout />}>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/list/:id" element={<ListPage />} />
+                </Route>
+              </Routes>
+              <Toaster />
+            </JazzAndAuth>
+          </ClerkProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </DarkModeProvider>
   </StrictMode>
 );

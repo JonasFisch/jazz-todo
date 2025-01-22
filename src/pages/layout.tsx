@@ -1,15 +1,15 @@
-import { Layout } from "antd";
-import { Content } from "antd/es/layout/layout";
 import { useAcceptInvite, useAccount } from "jazz-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import useIsAppOffline from "../hooks/is-app-offline-hook";
 import { List } from "../schema";
 import OfflineBanner from "../components/OfflineBanner";
+import { useTheme } from "../hooks/use-theme";
 
 export function RootLayout() {
   const { me } = useAccount();
   const isAppOffline = useIsAppOffline();
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
   useAcceptInvite({
     invitedObjectSchema: List,
@@ -22,19 +22,19 @@ export function RootLayout() {
   });
 
   return (
-    <Layout className="bg-gray-100">
-      {isAppOffline && (
-        <div className="fixed top-0 left-0 w-full">
-          <OfflineBanner />
-        </div>
-      )}
-      <Content className="flex flex-row w-full justify-center items-center">
-        <Layout className="max-w-4xl rounded-md bg-gray-50">
-          <Layout className="bg-gray-50">
+    <div className={`theme-${theme}`}>
+      <div className="bg-card">
+        {isAppOffline && (
+          <div className="fixed top-0 left-0 w-full">
+            <OfflineBanner />
+          </div>
+        )}
+        <div className="flex flex-row w-full justify-center items-center">
+          <div className="w-full max-w-4xl bg-background md:border-x">
             <Outlet />
-          </Layout>
-        </Layout>
-      </Content>
-    </Layout>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

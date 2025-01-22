@@ -1,17 +1,27 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
-import { Button, Col, Drawer, Empty, InputRef, Row, Typography } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useAccount, useCoState } from "jazz-react";
 import { ID } from "jazz-tools";
 import { useNavigate } from "react-router-dom";
 import { ListSettings } from "./ListSettings.tsx";
 import { AnimatePresence, motion } from "motion/react";
+import { Button } from "./ui/button.tsx";
+import { TypographyHeading } from "./ui/typography/heading.tsx";
+import { Settings, SquareCheck } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
-  const lastItemRef = useRef<InputRef | null>(null);
-  const [showListSettings, setShowListSettings] = useState(false);
+  const lastItemRef = useRef<HTMLInputElement | null>(null);
 
   const { me } = useAccount();
   const navigate = useNavigate();
@@ -69,47 +79,54 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   };
 
   return (
-    <Row className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
-      <Col
-        flex={"none"}
-        className="sticky top-0 bg-gradient-to-b from-gray-50/100 to-gray-50/80 backdrop-blur-[2px] pt-4 z-50 border-b"
-      >
+    <div className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
+      {/* TODO: put this in seperate component with two slots for header and body */}
+      <div className="px-6 py-2 sticky top-0 bg-gradient-to-b from-card/100 to-card/80 backdrop-blur-lg pt-4 z-50 border-b">
         <div className="flex flex-row justify-between items-start">
           <div className="flex flex-col justify-start items-start">
             <Button
+              size={"icon"}
               onClick={() => navigate("/", {})}
-              type="text"
-              size="middle"
-              className="text-gray-400 block pl-0"
+              variant={"link"}
+              className=" block pl-0"
             >
               &larr; back
             </Button>
             <div className="flex flex-row justify-between items-start">
-              <Typography.Title level={3}>
+              <TypographyHeading level={3}>
                 {list && list.getNameWithFallback}
-              </Typography.Title>
+              </TypographyHeading>
             </div>
           </div>
           <div className="flex flex-row gap-2">
-            <Button onClick={() => setShowListSettings(true)}>
-              <SettingOutlined className="text-xl" />
-            </Button>
-            <Drawer
-              title={
-                <Typography.Title level={4} className="!mb-0 ml-2">
-                  List settings
-                </Typography.Title>
-              }
-              open={showListSettings}
-              width={720}
-              onClose={() => setShowListSettings(false)}
-            >
-              {list && <ListSettings list={list} />}
-            </Drawer>
+            <Dialog>
+              <DialogTrigger>
+                <div className="transition-all cursor-pointer hover:bg-accent p-3 rounded-md">
+                  <Settings className="text-xl" />
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>List settings</DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  Change list settings here.
+                </DialogDescription>
+                {list && <ListSettings list={list} />}
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button type="button" variant="secondary">
+                      Done
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            {/* </Dialog> */}
           </div>
         </div>
-      </Col>
-      <Col flex={"auto"} className="flex flex-col">
+      </div>
+      <div className="flex-auto flex flex-col px-6">
         <div className="flex flex-col gap-0 flex-1">
           <div className="flex flex-col gap-4">
             <AnimatePresence>
@@ -147,21 +164,21 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             }}
           >
             {uncheckedTodos.length <= 0 && (
-              <div className="h-auto flex flex-col justify-center flex-1">
-                <Empty></Empty>
+              <div className="h-auto flex flex-col justify-center items-center flex-1">
+                <SquareCheck className="mb-2 text-gray-400" />
+                <TypographyHeading level={4}>
+                  <span className="text-gray-400">All done!</span>
+                </TypographyHeading>
               </div>
             )}
           </div>
         </div>
-      </Col>
-      <Col
-        flex={"none"}
-        className="sticky bottom-4 right-0 w-auto mr-0 ml-auto"
-      >
-        <Button onClick={createAndAddTodo} size="large">
+      </div>
+      <div className="flex-none sticky bottom-4 right-0 w-auto mr-0 ml-auto">
+        <Button onClick={createAndAddTodo} className="mx-6">
           Create Todo
         </Button>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
