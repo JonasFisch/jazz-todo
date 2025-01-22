@@ -101,7 +101,7 @@ export function Header() {
               </div>
 
               <div className="mb-3">
-                <Label htmlFor="theme-select">Theme</Label>
+                <Label htmlFor="theme-select">Theme (coming soon)</Label>
                 <Select onValueChange={setTheme} value={theme}>
                   <SelectTrigger id="theme-select" className="w-[180px]">
                     <SelectValue placeholder="Theme" />

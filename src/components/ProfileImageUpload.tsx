@@ -40,7 +40,7 @@ export function ProfileImageUpload() {
         </TypographyHeading>
         <label
           htmlFor="image-upload"
-          className="cursor-pointer avatar-uploader transition-colors border border-1 rounded-full border-dashed border-white hover:border-primary dark:hover:border-primaryDark"
+          className="cursor-pointer avatar-uploader transition-colors border-2 rounded-full border-dashed border-accent hover:border-primary"
         >
           {me.profile?.image ? (
             <div className="m-4 w-32 h-32 rounded-full overflow-hidden">

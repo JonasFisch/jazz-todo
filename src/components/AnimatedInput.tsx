@@ -37,7 +37,7 @@ export function AnimatedInput(
           boxShadow: "none",
           borderRadius: 3,
         }}
-        className="bg-bgSecondary dark:bg-bgSecondaryDark"
+        className="bg-transparent border-foreground border-1 border-solid border"
       />
       <motion.label
         id="check-circle"

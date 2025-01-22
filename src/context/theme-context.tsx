@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 
-type Theme = "orange" | "black" | "blue";
-const DEFAULT_THEME: Theme = "black";
+type Theme = "default";
+const DEFAULT_THEME: Theme = "default";
 
 const ThemeContext = createContext({
   theme: "",
@@ -27,7 +27,7 @@ function ThemeProvider(props: { children: React.ReactNode }) {
       value={{
         theme,
         setTheme: applyTheme,
-        availableThemes: ["orange", "black", "blue"],
+        availableThemes: ["default"],
       }}
     >
       {props.children}

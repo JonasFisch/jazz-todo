@@ -14,7 +14,7 @@ export function TypographyHeading({
         <h1
           {...props}
           className={twMerge([
-            "text-tBase dark:text-tBaseDark scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+            "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
             className,
           ])}
         >
@@ -26,7 +26,7 @@ export function TypographyHeading({
         <h2
           {...props}
           className={twMerge([
-            "text-tBase dark:text-tBaseDark scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+            "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
             className,
           ])}
         >
@@ -38,7 +38,7 @@ export function TypographyHeading({
         <h3
           {...props}
           className={twMerge([
-            "text-tBase dark:text-tBaseDark scroll-m-20 text-2xl font-semibold tracking-tight",
+            "scroll-m-20 text-2xl font-semibold tracking-tight",
             className,
           ])}
         >
@@ -50,7 +50,7 @@ export function TypographyHeading({
         <h4
           {...props}
           className={twMerge([
-            "text-tBase dark:text-tBaseDark scroll-m-20 text-xl font-semibold tracking-tight",
+            "scroll-m-20 text-xl font-semibold tracking-tight",
             className,
           ])}
         >

@@ -23,14 +23,14 @@ export function RootLayout() {
 
   return (
     <div className={`theme-${theme}`}>
-      <div className="bg-bgSecondary dark:bg-bgSecondaryDark">
+      <div className="bg-card">
         {isAppOffline && (
           <div className="fixed top-0 left-0 w-full">
             <OfflineBanner />
           </div>
         )}
         <div className="flex flex-row w-full justify-center items-center">
-          <div className="w-full max-w-4xl sm:rounded-md bg-bgPrimary dark:bg-bgPrimaryDark">
+          <div className="w-full max-w-4xl bg-background md:border-x">
             <Outlet />
           </div>
         </div>

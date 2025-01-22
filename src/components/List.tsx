@@ -81,29 +81,27 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   return (
     <div className="flex flex-col gap-2 flex-nowrap w-full min-h-[100dvh]">
       {/* TODO: put this in seperate component with two slots for header and body */}
-      <div className="px-6 py-2 sticky top-0 bg-gradient-to-b from-bgPrimary/100 to-bgPrimary/80 backdrop-blur-lg pt-4 z-50 border-b border-bgSecondary dark:border-bgSecondaryDark">
+      <div className="px-6 py-2 sticky top-0 bg-gradient-to-b from-card/100 to-card/80 backdrop-blur-lg pt-4 z-50 border-b">
         <div className="flex flex-row justify-between items-start">
           <div className="flex flex-col justify-start items-start">
             <Button
               size={"icon"}
               onClick={() => navigate("/", {})}
               variant={"link"}
-              className="text-tBase dark:text-tBaseDark block pl-0"
+              className=" block pl-0"
             >
               &larr; back
             </Button>
             <div className="flex flex-row justify-between items-start">
               <TypographyHeading level={3}>
-                <span className="text-tBase dark:text-tBaseDark">
-                  {list && list.getNameWithFallback}
-                </span>
+                {list && list.getNameWithFallback}
               </TypographyHeading>
             </div>
           </div>
           <div className="flex flex-row gap-2">
             <Dialog>
               <DialogTrigger>
-                <div className="transition-all cursor-pointer hover:bg-bgPrimary dark:hover:bg-bgSecondaryDark p-3 rounded-md">
+                <div className="transition-all cursor-pointer hover:bg-accent p-3 rounded-md">
                   <Settings className="text-xl" />
                 </div>
               </DialogTrigger>

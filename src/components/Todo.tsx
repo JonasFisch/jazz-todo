@@ -23,7 +23,7 @@ export const TodoComponent = forwardRef<
         }}
         checked={checked}
       />
-      <div className="border-b border-1 border-solid border-bgSecondary dark:border-bgSecondaryDark w-full">
+      <div className="border-b border-1 border-solid w-full">
         <form
           onSubmit={(event) => {
             event.preventDefault();
@@ -39,7 +39,7 @@ export const TodoComponent = forwardRef<
             onChange={(event) => {
               todo.title = event.target.value;
             }}
-            className={`border-0 bg-transparent text-tBase dark:text-tBaseDark ${
+            className={`border-0 bg-transparent ${
               todo.checked ? "line-through" : ""
             }`}
             onFocus={() => {
