@@ -13,7 +13,12 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { LogOut, User, UserCircle } from "lucide-react";
-import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "./ui/dialog";
 import { TypographyHeading } from "./ui/typography/heading";
 import { Avatar } from "./ui/avatar";
 import { Separator } from "./ui/separator";
@@ -72,6 +77,9 @@ export function Header() {
         >
           <DialogContent>
             <DialogTitle>Profile</DialogTitle>
+            <DialogDescription>
+              Change your profile settings here.
+            </DialogDescription>
             <ProfileImageUpload />
 
             <Separator />

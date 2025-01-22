@@ -9,8 +9,8 @@ export function TypographyText({
     <p
       {...props}
       className={twMerge([
-        "text-tBase dark:text-tBaseDark leading-7 [&:not(:first-child)]:mt-6",
         className,
+        "text-tBase dark:text-tBaseDark leading-7",
       ])}
     >
       {children}

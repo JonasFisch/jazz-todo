@@ -1,19 +1,27 @@
-import { Avatar, Typography, Upload, UploadProps } from "antd";
 import { co, ImageDefinition } from "jazz-tools";
 import { createImage } from "jazz-browser-media-images";
-import { useState } from "react";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Image } from "./Image";
 import { useAccount } from "jazz-react";
 import { useClerk } from "@clerk/clerk-react";
+import { Input } from "./ui/input";
+import { TypographyHeading } from "./ui/typography/heading";
 
 export function ProfileImageUpload() {
   const { me } = useAccount();
-  const [loading, setLoading] = useState(false);
 
-  const handleChange: UploadProps["onChange"] = (info) => {
-    if (info.file.status === "uploading") setLoading(true);
-    if (info.file.status === "done") setLoading(false);
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      if (me.profile) {
+        createImage(file, {
+          owner: me.profile._owner,
+        }).then((image) => {
+          if (me.profile)
+            me.profile.image = image as unknown as co<ImageDefinition>;
+        });
+      }
+      return "";
+    }
   };
 
   // const deleteImage = () => {
@@ -23,43 +31,33 @@ export function ProfileImageUpload() {
   // };
 
   const clerk = useClerk();
-  // const clerk = { user: { username: "het" } };
 
   return (
     <>
       <div className="flex flex-col items-center">
-        <Typography.Title>{clerk.user?.username}</Typography.Title>
-        <Upload
-          name="avatar"
-          listType="picture-circle"
-          className="avatar-uploader"
-          showUploadList={false}
-          action={(file) => {
-            if (me.profile) {
-              createImage(file, {
-                owner: me.profile._owner,
-              }).then((image) => {
-                if (me.profile)
-                  me.profile.image = image as unknown as co<ImageDefinition>;
-                setLoading(false);
-              });
-            }
-            return "";
-          }}
-          onChange={handleChange}
+        <TypographyHeading level={3} className="mb-4">
+          {clerk.user?.username}
+        </TypographyHeading>
+        <label
+          htmlFor="image-upload"
+          className="cursor-pointer avatar-uploader transition-colors border border-1 rounded-full border-dashed border-white hover:border-primary dark:hover:border-primaryDark"
         >
           {me.profile?.image ? (
-            <Avatar
-              className="h-[80%] w-[80%]"
-              icon={<Image image={me.profile.image} />}
-            ></Avatar>
+            <div className="m-4 w-32 h-32 rounded-full overflow-hidden">
+              <Image image={me.profile.image} />
+            </div>
           ) : (
             <button style={{ border: 0, background: "none" }} type="button">
-              {loading ? <LoadingOutlined /> : <PlusOutlined />}
               <div style={{ marginTop: 8 }}>Upload</div>
             </button>
           )}
-        </Upload>
+        </label>
+        <Input
+          id="image-upload"
+          type="file"
+          className="hidden"
+          onChange={handleUpload}
+        />
       </div>
     </>
   );

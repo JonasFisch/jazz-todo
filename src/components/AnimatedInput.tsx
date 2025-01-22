@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAnimate, motion } from "motion/react";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckIcon } from "lucide-react";
 
 export function AnimatedInput(
   props: React.InputHTMLAttributes<HTMLInputElement> & { id: string }
@@ -56,7 +56,7 @@ export function AnimatedInput(
           alignItems: "center",
         }}
       >
-        <CheckOutlined />
+        <CheckIcon />
       </motion.label>
       <input
         {...props}

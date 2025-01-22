@@ -1,13 +1,15 @@
-import { Avatar, Button, Divider, Input, message, Tag, Typography } from "antd";
 import { List, TodoAccountProfile } from "../schema";
 import { Group } from "jazz-tools";
 import { Image } from "./Image";
-import {
-  DeleteOutlined,
-  UsergroupAddOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { createInviteLink } from "jazz-react";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
+import { toast } from "sonner";
+import { TypographyHeading } from "./ui/typography/heading";
+import { TypographyText } from "./ui/typography/text";
+import { Badge } from "./ui/badge";
+import { Trash2, User, UserPlus } from "lucide-react";
+import { Input } from "./ui/input";
 
 export function ListSettings({ list }: { list: List }) {
   const members = list._owner.castAs(Group).members ?? [];
@@ -19,22 +21,17 @@ export function ListSettings({ list }: { list: List }) {
       });
       if (inviteLink) {
         navigator.clipboard.writeText(inviteLink);
-        pushMessage();
+        toast("Invite link copied to clipboard", { dismissible: true });
       }
     }
-  };
-
-  const pushMessage = () => {
-    message.config({ maxCount: 1 });
-    message.success("Invite link copied to clipboard");
   };
 
   return (
     <div>
       <section>
-        <Typography.Title level={5} className="bg-amber-200 inline">
+        <TypographyHeading level={4} className="bg-amber-200 inline">
           <span className="text-tBase">&nbsp;Title&nbsp;</span>
-        </Typography.Title>
+        </TypographyHeading>
         <Input
           value={list.name}
           className="bg-bgSecondary dark:bg-bgSecondaryDark text-center mt-4 text-tBase dark:text-tBaseDark"
@@ -42,12 +39,12 @@ export function ListSettings({ list }: { list: List }) {
           placeholder="List Title"
         />
       </section>
-      <Divider />
+      <Separator className="my-6" />
       <section>
         <div className="flex flex-row justify-between items-start">
-          <Typography.Title level={5} className="bg-amber-200 inline">
+          <TypographyHeading level={4} className="bg-amber-200 inline">
             <span className="text-tBase">&nbsp;Members&nbsp;</span>
-          </Typography.Title>
+          </TypographyHeading>
         </div>
         <div className="flex flex-col gap-4 pt-4">
           {members
@@ -59,28 +56,23 @@ export function ListSettings({ list }: { list: List }) {
                   key={`avatar-${member.id}`}
                   className="flex flex-row justify-between items-center "
                 >
-                  <Avatar
-                    size={"large"}
-                    className="bg-gray-300 flex-shrink-0"
-                    icon={
-                      profile?.image ? (
-                        <Image image={profile.image} />
-                      ) : (
-                        <UserOutlined />
-                      )
-                    }
-                  />
-                  <Typography.Paragraph ellipsis className="!mb-0 ml-4 mr-auto">
+                  <div className="w-8 h-8 rounded-full overflow-hidden">
+                    {profile?.image ? (
+                      <Image image={profile.image} />
+                    ) : (
+                      <User />
+                    )}
+                  </div>
+                  <TypographyText className="!mb-0 ml-4 mr-auto text-ellipsis">
                     {member.account?.isMe
                       ? "You"
                       : member.account?.profile?.name}
-                  </Typography.Paragraph>
+                  </TypographyText>
                   <div className="flex flex-row gap-2">
-                    <Tag color={member.role == "admin" ? "success" : "blue"}>
-                      {member.role}
-                    </Tag>
-                    <DeleteOutlined
-                      className="text-red-600 text-lg cursor-pointer"
+                    <Badge>{member.role}</Badge>
+                    <Trash2
+                      size={20}
+                      className="text-red-600 cursor-pointer"
                       onClick={() => {
                         alert("coming soon");
                       }}
@@ -90,16 +82,14 @@ export function ListSettings({ list }: { list: List }) {
               );
             })}
         </div>
-        <Divider />
         {list._owner.myRole() === "admin" && (
           <div className="flex flex-row justify-center mt-4">
             <Button
-              type="primary"
-              icon={<UsergroupAddOutlined />}
               onClick={() => {
                 invite("writer");
               }}
             >
+              <UserPlus />
               Invite Member
             </Button>
           </div>

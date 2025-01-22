@@ -3,7 +3,7 @@ import { ListManagerAccount } from "./schema.ts";
 import { useJazzClerkAuth } from "jazz-react-auth-clerk";
 import { ClerkLoaded, ClerkLoading, useClerk } from "@clerk/clerk-react";
 import { LandingPage } from "./pages/landing-page.tsx";
-import { Spin } from "antd";
+import { LoaderCircle } from "lucide-react";
 
 export function JazzAndAuth({ children }: { children: React.ReactNode }) {
   const clerk = useClerk();
@@ -13,7 +13,7 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
     <>
       <ClerkLoading>
         <div className="h-dvh w-full flex justify-center items-center">
-          <Spin delay={0.5} />
+          <LoaderCircle className="animate-spin" />
         </div>
       </ClerkLoading>
       <ClerkLoaded>

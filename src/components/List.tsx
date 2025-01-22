@@ -1,8 +1,6 @@
 import { List, Todo } from "../schema";
 import { TodoComponent } from "./Todo.tsx";
-import { Drawer, Empty } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useAccount, useCoState } from "jazz-react";
 import { ID } from "jazz-tools";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +8,20 @@ import { ListSettings } from "./ListSettings.tsx";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "./ui/button.tsx";
 import { TypographyHeading } from "./ui/typography/heading.tsx";
-import { Settings } from "lucide-react";
+import { Settings, SquareCheck } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog.tsx";
 
 export function ListComponent({ listID }: { listID: ID<List> }) {
   const lastItemRef = useRef<HTMLInputElement | null>(null);
-  const [showListSettings, setShowListSettings] = useState(false);
 
   const { me } = useAccount();
   const navigate = useNavigate();
@@ -94,29 +101,30 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             </div>
           </div>
           <div className="flex flex-row gap-2">
-            <Button onClick={() => setShowListSettings(true)}>
-              <Settings className="text-xl" />
-            </Button>
-            <Drawer
-              className="!bg-bgPrimary dark:!bg-bgPrimaryDark"
-              title={
-                <TypographyHeading level={4} className="!mb-0 ml-2 ">
-                  <span className="text-tBase dark:text-tBaseDark">
-                    List settings
-                  </span>
-                </TypographyHeading>
-              }
-              closeIcon={
-                <CloseOutlined className="text-tBase dark:text-tBaseDark">
-                  {" "}
-                </CloseOutlined>
-              }
-              open={showListSettings}
-              width={720}
-              onClose={() => setShowListSettings(false)}
-            >
-              {list && <ListSettings list={list} />}
-            </Drawer>
+            <Dialog>
+              <DialogTrigger>
+                <div className="transition-all cursor-pointer hover:bg-bgPrimary dark:hover:bg-bgSecondaryDark p-3 rounded-md">
+                  <Settings className="text-xl" />
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>List settings</DialogTitle>
+                </DialogHeader>
+                <DialogDescription>
+                  Change list settings here.
+                </DialogDescription>
+                {list && <ListSettings list={list} />}
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button type="button" variant="secondary">
+                      Done
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            {/* </Dialog> */}
           </div>
         </div>
       </div>
@@ -158,8 +166,11 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
             }}
           >
             {uncheckedTodos.length <= 0 && (
-              <div className="h-auto flex flex-col justify-center flex-1">
-                <Empty></Empty>
+              <div className="h-auto flex flex-col justify-center items-center flex-1">
+                <SquareCheck className="mb-2 text-gray-400" />
+                <TypographyHeading level={4}>
+                  <span className="text-gray-400">All done!</span>
+                </TypographyHeading>
               </div>
             )}
           </div>

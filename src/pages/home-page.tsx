@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { TypographyHeading } from "@/components/ui/typography/heading";
 import { TypographyText } from "@/components/ui/typography/text";
-import { PlusOutlined } from "@ant-design/icons";
 import {
   Drawer,
   DrawerContent,
@@ -14,6 +13,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { useState } from "react";
+import { Plus } from "lucide-react";
 
 export function HomePage() {
   const { me } = useAccount();
@@ -64,7 +64,7 @@ export function HomePage() {
           </div>
           <div className="flex flex-row justify-end p-4 sticky bottom-0">
             <Button className="" onClick={() => setCreateDrawerOpen(true)}>
-              <PlusOutlined />
+              <Plus />
             </Button>
           </div>
           <Drawer
