@@ -29,9 +29,7 @@ export function ListSettings({ list }: { list: List }) {
   return (
     <div>
       <section>
-        <TypographyHeading level={4} className="bg-amber-200 inline">
-          &nbsp;Title&nbsp;
-        </TypographyHeading>
+        <TypographyHeading level={4}>&nbsp;Title&nbsp;</TypographyHeading>
         <Input
           value={list.name}
           className="text-center mt-4"
@@ -42,9 +40,7 @@ export function ListSettings({ list }: { list: List }) {
       <Separator className="my-6" />
       <section>
         <div className="flex flex-row justify-between items-start">
-          <TypographyHeading level={4} className="bg-amber-200 inline">
-            &nbsp;Members&nbsp;
-          </TypographyHeading>
+          <TypographyHeading level={4}>&nbsp;Members&nbsp;</TypographyHeading>
         </div>
         <div className="flex flex-col gap-4 pt-4">
           {members

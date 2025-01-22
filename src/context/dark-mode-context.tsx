@@ -5,7 +5,7 @@ type Mode = "light" | "dark" | "auto";
 const DarkModeContext = createContext({
   darkMode: "auto",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setDarkMode: (mode: Mode) => {},
+  setDarkMode: (_mode: Mode) => {},
 });
 
 function DarkModeProvider(props: { children: React.ReactNode }) {

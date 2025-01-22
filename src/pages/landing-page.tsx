@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TypographyHeading } from "@/components/ui/typography/heading";
 import { TypographyText } from "@/components/ui/typography/text";
 import { SignInButton } from "@clerk/clerk-react";
 

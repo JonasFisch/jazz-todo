@@ -7,7 +7,7 @@ const ThemeContext = createContext({
   theme: "",
   availableThemes: [] as Theme[],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setTheme: (theme: Theme) => {},
+  setTheme: (_theme: Theme) => {},
 });
 
 function ThemeProvider(props: { children: React.ReactNode }) {
