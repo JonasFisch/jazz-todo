@@ -6,7 +6,7 @@ export function TypographyText({
   ...props
 }: React.BaseHTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p {...props} className={twMerge([className, "leading-7"])}>
+    <p {...props} className={twMerge(["leading-7", className])}>
       {children}
     </p>
   );

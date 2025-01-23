@@ -30,7 +30,7 @@ export function RootLayout() {
           </div>
         )}
         <div className="flex flex-row w-full justify-center items-center">
-          <div className="w-full max-w-4xl bg-background md:border-x">
+          <div className="w-full max-w-4xl bg-card md:border-x">
             <Outlet />
           </div>
         </div>

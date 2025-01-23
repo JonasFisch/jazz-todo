@@ -25,12 +25,12 @@ export function HomePage() {
     <div>
       <main className={`relative sm:block `}>
         <div className="flex flex-col justify-between min-h-dvh">
-          <div className="flex flex-col">
+          <div className="flex flex-col flex-1">
             {me.root && (
               <div>
                 {/* TODO: put sticky and the gradient and backdrop logic in extra component */}
                 <div className="flex flex-row justify-between items-center mb-4 pt-4 pb-3 px-4 text-xl font-bold sticky top-0 backdrop-blur-sm bg-gradient-to-b from-background/100 to-background/80 border-b border-border">
-                  <TypographyHeading level={3} className="!mb-0">
+                  <TypographyHeading level={3} className="!mb-0 font-bold">
                     My Lists
                   </TypographyHeading>
                   <Header />
@@ -54,13 +54,14 @@ export function HomePage() {
                         <div className="flex flex-row gap-2 items-center">
                           <TypographyHeading
                             level={4}
-                            className="!mb-0 font-light text-md"
+                            className="!mb-0 font-normal text-md"
                           >
                             {list.getNameWithFallback}
                           </TypographyHeading>
                           <div className="h-[5px] w-[5px] rounded-full bg-card-foreground"></div>
                           <TypographyText className="text-primary text-sm">
-                            {list.todos?.length ?? 0}
+                            {list.todos?.filter((todo) => !todo?.checked)
+                              ?.length ?? 0}
                           </TypographyText>
                         </div>
                         <ChevronRight className="text-gray-400" />

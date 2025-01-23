@@ -4,6 +4,9 @@ export default {
   darkMode: ["selector"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Baloo Paaji 2", "sans-serif"],
+      },
       colors: {
         primary: {
           DEFAULT: "hsl(var(--primary))",
