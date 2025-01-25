@@ -38,9 +38,8 @@ export function HomePage() {
                 {me.root?.lists
                   ?.filter((list) => !!list)
                   .map((list) => (
-                    <>
+                    <div key={list.id}>
                       <div
-                        key={list.id}
                         className={`w-full px-4 py-4 flex flex-row gap-3 items-center justify-between bg-card transition-colors rounded-lg hover:bg-accent cursor-pointer ${
                           me.root?.lists?.indexOf(list) ===
                           (me.root?.lists?.length ?? 0) - 1
@@ -67,7 +66,7 @@ export function HomePage() {
                         <ChevronRight className="text-gray-400" />
                       </div>
                       {/* <Separator orientation="horizontal" /> */}
-                    </>
+                    </div>
                   ))}
               </div>
             )}

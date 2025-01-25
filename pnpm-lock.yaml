@@ -42,20 +42,20 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       jazz-browser-media-images:
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.18
+        version: 0.9.18
       jazz-react:
-        specifier: ^0.9.4
-        version: 0.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.9.18
+        version: 0.9.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       jazz-react-auth-clerk:
-        specifier: ^0.9.4
-        version: 0.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.9.18
+        version: 0.9.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       jazz-run:
-        specifier: ^0.9.1
-        version: 0.9.1(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1))
+        specifier: ^0.9.18
+        version: 0.9.18(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1))
       jazz-tools:
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.9.18
+        version: 0.9.18
       lucide-react:
         specifier: ^0.473.0
         version: 0.473.0(react@18.3.1)
@@ -1876,20 +1876,20 @@ packages:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
 
-  cojson-storage-indexeddb@0.9.0:
-    resolution: {integrity: sha512-oBWmcqPJTmueoCF5ISZ0rV2cpsjx1mudo0sUZr2KYGYx/T5eG9MOPjBcliL+ebprCu12Qh/eCQaR3UktQNxsbA==}
+  cojson-storage-indexeddb@0.9.18:
+    resolution: {integrity: sha512-pgwmY5iDpghRrF5Tm3LfDeSGjPdxD07Oy6B5IDlIcB3esPhseYeZqX6Q4c6Z+cpcERYwnZ079048617X3ON7vw==}
 
-  cojson-storage-sqlite@0.9.0:
-    resolution: {integrity: sha512-JcQlWQhT40ROyOpjOly4sJ1usdTX3f+mRH7UbBDDYhPg2LGScM1r4frqaxCc7qJolz30hlO+dlbnjHqIIwKEjg==}
+  cojson-storage-sqlite@0.9.18:
+    resolution: {integrity: sha512-9Dp5daw0WlAoaT5dud4eaK79HrU5z5Sl0ltnbN2TlzJd62D1Nrh1LDQQK+m2dQQom8sPovIjOfguDdUIlfRu4A==}
 
-  cojson-storage@0.9.0:
-    resolution: {integrity: sha512-reLcTUl2v6IPVp5PNeZQi7WA23N0/IpXdX53j2mb28LnaSNK6kVZEPuwUYrYFXp7JTDPaF+uVcFwVVOM7vKR5A==}
+  cojson-storage@0.9.18:
+    resolution: {integrity: sha512-kPF+hIgt8yLmi13v7sycpNotTnKH/zYLjzwoWImhPPI9M2Zaflu9+lQ9PAu9M++iyWjzFMXzh1EwbMAK5sGZCg==}
 
-  cojson-transport-ws@0.9.0:
-    resolution: {integrity: sha512-C+f3a0IFKLyHyOMX3PPTxJ0tiWy7O6ns4OWonB3H4odvivtSh3fk6cQ+KeqEu2JJyIV5A8BYD3rbtGuqrdUmww==}
+  cojson-transport-ws@0.9.18:
+    resolution: {integrity: sha512-GiZZDAC9Sm4apGcnS6teqRrCCn+GC4r/4V3SmS0vYtRcq+6aa58ApMEhe2midiKth02T3VBr0jBS1Yo2ibOiLw==}
 
-  cojson@0.9.0:
-    resolution: {integrity: sha512-xeXTBOHNer8IdC7f/iJdrbRmreXZUl8yCmR+99zmCWZ+V6Tu+/bTpvJttyT+oW8MH2EEk2kUD7PQmtQ5IDvKsw==}
+  cojson@0.9.18:
+    resolution: {integrity: sha512-D7QQZt6avpgU/S4JDxJAuI8eMqLfzPuoD71WMSk7aEfbfEf0MSkp3R/AhadM8hkWIJsScSqCysdV0PTLttMfTQ==}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -2528,38 +2528,38 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  jazz-browser-auth-clerk@0.9.1:
-    resolution: {integrity: sha512-Rtkg7nSRs99WVHWpnu1oOSb4JThQ004RzAhzM2qo2FfSt7RpuJ1ZUZBezDp/6ktmljVlWkhSqB0oFwFeWXVIFg==}
+  jazz-browser-auth-clerk@0.9.18:
+    resolution: {integrity: sha512-FYNzYhK6zEsfCaYd/93rxm4RkZxgJQDyU8dFP4dD0aQnY/1et5IkQ3PRHmuY1MMSu0YKDA6825Fw2Z5bAaGK9Q==}
 
-  jazz-browser-media-images@0.9.1:
-    resolution: {integrity: sha512-JppwyGR8nyZx1HFQISOvMq1wWoOnTYWFj7tKEWksH4B9OGRuaVx6EdTngLcFi+QL0KjssD2XbcOy/jYXCaGrGA==}
+  jazz-browser-media-images@0.9.18:
+    resolution: {integrity: sha512-4MwqDxmrUrabdHFLHXvfR2TdtJcRwqdx/CvwhzUznEX79fVvF1E/oPcYUXLOp01TKgkli8jc14LbljFQBjdzhw==}
 
-  jazz-browser@0.9.1:
-    resolution: {integrity: sha512-u7I87hIGc1zhPcTgzHuQ5JlEvVydR+TfdYfxCBW+4nuqOud7auQEZCbVTwRW3GNM7xCBJH33MG50chqtaodpCA==}
+  jazz-browser@0.9.18:
+    resolution: {integrity: sha512-eEHw1MhBhXFl/Gy+nLhFb6828jJEzZxIhzDavRFyraBDSzeXjlfmePYZec2SiyxMZDRqTLMVu6VoN2Sy3umt/Q==}
 
-  jazz-react-auth-clerk@0.9.4:
-    resolution: {integrity: sha512-7MilvBp2tM1rhxWbZX5FNMxU721F6Q+h9/y+pBWZO8PPfkCrbwq9dvH5xsVVisO75W4vRL8EHRWVlFeV1xd7pw==}
+  jazz-react-auth-clerk@0.9.18:
+    resolution: {integrity: sha512-SLY9bl9bjJ5FVbDuutH3VzbfydNsHt/6l+X6DJi6w1C/3S2UHxKxsx9KallAkdRm36jqO3gevnVG0F33NeyVsw==}
     peerDependencies:
       react: ^18.2.0
 
-  jazz-react-core@0.8.48:
-    resolution: {integrity: sha512-bOKUu5yAn2mwveaDP06V8/MXVkqux+o6ZRJyJNBU17ph755miGca0fKFGUrFUJ+NvVRlVYb6pbflL+wWnO5Ieg==}
+  jazz-react-core@0.8.59:
+    resolution: {integrity: sha512-Ru+uBnOc8Hjc3MfG3Evw0Zh9NoNPhwSbiqLroPeQ0Yucyn5q6eVQrsZH1QBcQEJ5e9H7HR2fXZX4QdZ6gSmL4g==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
 
-  jazz-react@0.9.4:
-    resolution: {integrity: sha512-00PUXsTJ3ODQajBO4hnNoDUZIjjEnyPAoHXXBWtqBGJ6+JjtbG4ap2NQ625zCigJqCHfAJRR0DOJjoxcicDv/g==}
+  jazz-react@0.9.18:
+    resolution: {integrity: sha512-YfmUGWsDJpWVrZlODqM2GLgYtqnM28oZBbzE6RUkBuVw+a6k5vPm2ou/vIx5mrKt0qOF/uonPynjgt+WtNccRA==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
 
-  jazz-run@0.9.1:
-    resolution: {integrity: sha512-KDAgzgqIQe7N7TedAmNgA23FMW12/w+nz9PHLS+hxl7nXeGG47BxXoogPh1z0AijgnkaZ3KVn5jrBnyn/AUPIQ==}
+  jazz-run@0.9.18:
+    resolution: {integrity: sha512-Ct5gmdrUCcaTpqEp4VsKcy82x2x81eHHlzJRKifnq9BoGYSL090s/uFnEQNUI7xHZQmhR8GOleO5yF2tsdK7/w==}
     hasBin: true
 
-  jazz-tools@0.9.1:
-    resolution: {integrity: sha512-78ud1dIcBQD828y+pAvgbX7B3bYbwt1FyeNv2yTRrtcO7VeMexkAV70NgxMmt8WmznLp7je0mDTVStEzkMkzuw==}
+  jazz-tools@0.9.18:
+    resolution: {integrity: sha512-9vuiA0/LsJSQeOorFgzksIpz2LWZa5L54Y4PpzJt8g0ECyK1PdNU1vmEX12ivEE6+JyzEmlbvRCKQUdcIZFq+g==}
 
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
@@ -5483,27 +5483,27 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  cojson-storage-indexeddb@0.9.0:
+  cojson-storage-indexeddb@0.9.18:
     dependencies:
-      cojson: 0.9.0
-      cojson-storage: 0.9.0
+      cojson: 0.9.18
+      cojson-storage: 0.9.18
 
-  cojson-storage-sqlite@0.9.0:
+  cojson-storage-sqlite@0.9.18:
     dependencies:
       better-sqlite3: 11.7.2
-      cojson: 0.9.0
-      cojson-storage: 0.9.0
+      cojson: 0.9.18
+      cojson-storage: 0.9.18
 
-  cojson-storage@0.9.0:
+  cojson-storage@0.9.18:
     dependencies:
-      cojson: 0.9.0
+      cojson: 0.9.18
 
-  cojson-transport-ws@0.9.0:
+  cojson-transport-ws@0.9.18:
     dependencies:
-      cojson: 0.9.0
+      cojson: 0.9.18
       typescript: 5.6.3
 
-  cojson@0.9.0:
+  cojson@0.9.18:
     dependencies:
       '@hazae41/berith': 1.2.6
       '@noble/ciphers': 0.1.4
@@ -6206,58 +6206,58 @@ snapshots:
       filelist: 1.0.4
       minimatch: 3.1.2
 
-  jazz-browser-auth-clerk@0.9.1:
+  jazz-browser-auth-clerk@0.9.18:
     dependencies:
-      cojson: 0.9.0
-      jazz-browser: 0.9.1
-      jazz-tools: 0.9.1
+      cojson: 0.9.18
+      jazz-browser: 0.9.18
+      jazz-tools: 0.9.18
 
-  jazz-browser-media-images@0.9.1:
+  jazz-browser-media-images@0.9.18:
     dependencies:
       '@types/image-blob-reduce': 4.1.4
       image-blob-reduce: 4.1.0
-      jazz-browser: 0.9.1
-      jazz-tools: 0.9.1
+      jazz-browser: 0.9.18
+      jazz-tools: 0.9.18
       pica: 9.0.1
       typescript: 5.6.3
 
-  jazz-browser@0.9.1:
+  jazz-browser@0.9.18:
     dependencies:
       '@scure/bip39': 1.5.1
-      cojson: 0.9.0
-      cojson-storage-indexeddb: 0.9.0
-      cojson-transport-ws: 0.9.0
-      jazz-tools: 0.9.1
+      cojson: 0.9.18
+      cojson-storage-indexeddb: 0.9.18
+      cojson-transport-ws: 0.9.18
+      jazz-tools: 0.9.18
       typescript: 5.6.3
 
-  jazz-react-auth-clerk@0.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  jazz-react-auth-clerk@0.9.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      cojson: 0.9.0
-      jazz-browser-auth-clerk: 0.9.1
-      jazz-react: 0.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      jazz-tools: 0.9.1
+      cojson: 0.9.18
+      jazz-browser-auth-clerk: 0.9.18
+      jazz-react: 0.9.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      jazz-tools: 0.9.18
       react: 18.3.1
     transitivePeerDependencies:
       - react-dom
 
-  jazz-react-core@0.8.48(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  jazz-react-core@0.8.59(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      cojson: 0.9.0
-      jazz-tools: 0.9.1
+      cojson: 0.9.18
+      jazz-tools: 0.9.18
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  jazz-react@0.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  jazz-react@0.9.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@scure/bip39': 1.5.1
-      cojson: 0.9.0
-      jazz-browser: 0.9.1
-      jazz-react-core: 0.8.48(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      jazz-tools: 0.9.1
+      cojson: 0.9.18
+      jazz-browser: 0.9.18
+      jazz-react-core: 0.8.59(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      jazz-tools: 0.9.18
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  jazz-run@0.9.1(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1)):
+  jazz-run@0.9.18(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1)):
     dependencies:
       '@effect/cli': 0.41.5(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1))(@effect/printer-ansi@0.34.8(@effect/typeclass@0.25.8(effect@3.12.1))(effect@3.12.1))(@effect/printer@0.34.8(@effect/typeclass@0.25.8(effect@3.12.1))(effect@3.12.1))(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1)
       '@effect/platform-node': 0.57.5(@effect/platform@0.62.5(@effect/schema@0.71.4(effect@3.12.1))(effect@3.12.1))(effect@3.12.1)
@@ -6265,20 +6265,20 @@ snapshots:
       '@effect/printer-ansi': 0.34.8(@effect/typeclass@0.25.8(effect@3.12.1))(effect@3.12.1)
       '@effect/schema': 0.71.4(effect@3.12.1)
       '@effect/typeclass': 0.25.8(effect@3.12.1)
-      cojson: 0.9.0
-      cojson-storage-sqlite: 0.9.0
-      cojson-transport-ws: 0.9.0
+      cojson: 0.9.18
+      cojson-storage-sqlite: 0.9.18
+      cojson-transport-ws: 0.9.18
       effect: 3.12.1
-      jazz-tools: 0.9.1
+      jazz-tools: 0.9.18
       ws: 8.18.0
     transitivePeerDependencies:
       - '@effect/platform'
       - bufferutil
       - utf-8-validate
 
-  jazz-tools@0.9.1:
+  jazz-tools@0.9.18:
     dependencies:
-      cojson: 0.9.0
+      cojson: 0.9.18
 
   jiti@1.21.7: {}
 

@@ -19,6 +19,7 @@ export function JazzAndAuth({ children }: { children: React.ReactNode }) {
       <ClerkLoaded>
         {auth && clerk.user ? (
           <JazzProvider
+            storage={"singleTabOPFS"}
             auth={auth}
             AccountSchema={ListManagerAccount}
             peer={import.meta.env.VITE_JAZZ_PEER}
