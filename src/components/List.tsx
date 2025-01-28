@@ -8,7 +8,7 @@ import { ListSettings } from "./ListSettings.tsx";
 import { AnimatePresence, motion } from "motion/react";
 import { Button } from "./ui/button.tsx";
 import { TypographyHeading } from "./ui/typography/heading.tsx";
-import { Settings, SquareCheck } from "lucide-react";
+import { Plus, Settings, SquareCheck } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -87,7 +87,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
           <div className="flex flex-col justify-start items-start">
             <Button
               size={"icon"}
-              onClick={() => navigate("/", {})}
+              onClick={() => navigate(-1)}
               variant={"link"}
               className=" block pl-0"
             >
@@ -155,6 +155,16 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                     </motion.div>
                   )
               )}
+              <Button
+                variant={"secondary"}
+                className="text-start justify-start ml-7"
+                onClick={() => {
+                  createAndAddTodo();
+                }}
+              >
+                <Plus />
+                new to-do
+              </Button>
             </AnimatePresence>
           </div>
           <div
