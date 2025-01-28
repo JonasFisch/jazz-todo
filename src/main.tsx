@@ -9,7 +9,7 @@ import { HomePage } from "./pages/home-page.tsx";
 import { ListPage } from "./pages/lists-page.tsx";
 import { DarkModeProvider } from "./context/dark-mode-context.tsx";
 import { ThemeProvider } from "./context/theme-context.tsx";
-import { Toaster } from "./components/ui/sonner.tsx";
+import { Toaster } from "./components/ui/toaster.tsx";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_PUBLIC_CLERK_PUBLISHABLE_KEY;

@@ -37,6 +37,7 @@ export function HomePage() {
                 </div>
                 {me.root?.lists
                   ?.filter((list) => !!list)
+                  .filter((list) => !!list._owner.myRole())
                   .map((list) => (
                     <div key={list.id}>
                       <div
