@@ -8,16 +8,20 @@ import { TypographyText } from "@/components/ui/typography/text";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { useState } from "react";
 import { ChevronRight, Plus } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function HomePage() {
   const { me } = useAccount();
   const navigate = useNavigate();
+  const [newListName, setNewListName] = useState("");
 
   const [createDrawerOpen, setCreateDrawerOpen] = useState(false);
 
@@ -83,31 +87,44 @@ export function HomePage() {
           >
             <div className="mx-auto w-full max-w-sm">
               {/* TODO: put create button in extra component */}
-              <DrawerContent>
-                <DrawerHeader className="w-full flex flex-row justify-center">
-                  <DrawerTitle>Create List</DrawerTitle>
-                </DrawerHeader>
-                <DrawerFooter>
-                  <div className="flex flex-row justify-center gap-4">
-                    <Button
-                      variant={"outline"}
-                      onClick={() => setCreateDrawerOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        const newList = createList(me);
-                        if (me.root) {
-                          me.root.lists?.push(newList);
-                          navigate(`/list/${newList.id}`);
-                        }
-                      }}
-                    >
-                      Create List
-                    </Button>
+              <DrawerContent className="w-full flex flex-col justify-center">
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Create List</DrawerTitle>
+                    <DrawerDescription>
+                      Set a title for your list.
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <div className="px-4">
+                    <Label>Name</Label>
+                    <Input
+                      placeholder="list name"
+                      value={newListName}
+                      onChange={(event) => setNewListName(event.target.value)}
+                    />
                   </div>
-                </DrawerFooter>
+                  <DrawerFooter>
+                    <div className="flex flex-col justify-end gap-3">
+                      <Button
+                        onClick={() => {
+                          const newList = createList(me, newListName);
+                          if (me.root) {
+                            me.root.lists?.push(newList);
+                            navigate(`/list/${newList.id}`);
+                          }
+                        }}
+                      >
+                        Create List
+                      </Button>
+                      <Button
+                        variant={"outline"}
+                        onClick={() => setCreateDrawerOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </DrawerFooter>
+                </div>
               </DrawerContent>
             </div>
           </Drawer>

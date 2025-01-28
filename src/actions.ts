@@ -1,11 +1,11 @@
 import { co, Group } from "jazz-tools";
 import { List, ListManagerAccount, ListofLists, ListOfTodos } from "./schema";
 
-export const createList = (owner: ListManagerAccount) => {
+export const createList = (owner: ListManagerAccount, name: string = "") => {
   const group = Group.create({ owner: owner });
   const newList = List.create(
     {
-      name: "Einkaufsliste",
+      name: name,
       todos: ListOfTodos.create([], { owner: group }),
       getNameWithFallback: "",
       deleted: false,
