@@ -47,11 +47,12 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
   useEffect(() => {
     if (
       list &&
+      !list.deleted &&
       !me.root?.lists?.find((savedLists) => savedLists?.id == list?.id)
     ) {
       me.root?.lists?.push(list);
     }
-  }, [list, me.root]);
+  }, [list, me.root, navigate]);
 
   const createAndAddTodo = () => {
     // otherwise build try catch around and log error message

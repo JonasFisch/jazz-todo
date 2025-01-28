@@ -5,6 +5,8 @@ import { useAccount } from "jazz-react";
 import { useClerk } from "@clerk/clerk-react";
 import { Input } from "./ui/input";
 import { TypographyHeading } from "./ui/typography/heading";
+import { TypographyText } from "./ui/typography/text";
+import { Button } from "./ui/button";
 
 export function ProfileImageUpload() {
   const { me } = useAccount();
@@ -24,11 +26,11 @@ export function ProfileImageUpload() {
     }
   };
 
-  // const deleteImage = () => {
-  //   if (!me?.profile) return;
+  const deleteImage = () => {
+    if (!me?.profile) return;
 
-  //   me.profile.image = null;
-  // };
+    me.profile.image = null;
+  };
 
   const clerk = useClerk();
 
@@ -42,16 +44,30 @@ export function ProfileImageUpload() {
           htmlFor="image-upload"
           className="cursor-pointer avatar-uploader transition-colors border-2 rounded-full border-dashed border-accent hover:border-primary"
         >
-          {me.profile?.image ? (
-            <div className="m-4 w-32 h-32 rounded-full overflow-hidden">
+          <div className="m-4 w-32 h-32 rounded-full overflow-hidden">
+            {me.profile?.image ? (
               <Image image={me.profile.image} />
-            </div>
-          ) : (
-            <button style={{ border: 0, background: "none" }} type="button">
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </button>
-          )}
+            ) : (
+              <div className="h-full w-full p-3 flex flex-row justify-center items-center">
+                <TypographyText className="text-center text-gray-500">
+                  click to add profile image
+                </TypographyText>
+              </div>
+            )}
+          </div>
         </label>
+        {me.profile?.image && (
+          <div className="flex flex-row gap-3 mt-4">
+            <label htmlFor="image-upload" className="cursor-pointer">
+              <Button variant={"default"} className="pointer-events-none">
+                Change picture
+              </Button>
+            </label>
+            <Button variant={"secondary"} onClick={deleteImage}>
+              Delete picture
+            </Button>
+          </div>
+        )}
         <Input
           id="image-upload"
           type="file"

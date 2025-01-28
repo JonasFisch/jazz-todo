@@ -61,6 +61,7 @@ export class ListOfTodos extends CoList.Of(co.ref(Todo)) {}
 
 export class List extends CoMap {
   name = co.string;
+  deleted = co.boolean;
   todos = co.ref(ListOfTodos);
 
   get getNameWithFallback() {

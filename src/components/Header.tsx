@@ -44,11 +44,11 @@ export function Header() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>
-            <div className="cursor-pointer hover:opacity-85 h-10 w-10">
+            <div className="cursor-pointer hover:opacity-85 h-10 w-10 flex flex-row justify-center items-center">
               {me.profile?.image ? (
                 <Image image={me.profile?.image} />
               ) : (
-                <UserCircle />
+                <UserCircle size={28} />
               )}
             </div>
           </Avatar>
