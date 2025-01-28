@@ -36,9 +36,6 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       if (lastItemRef.current) {
         lastItemRef.current.focus();
         lastItemRef.current.select();
-        // lastItemRef.current.scrollIntoView({
-        //   behavior: "smooth",
-        // });
       }
     }, 0);
   };
@@ -189,9 +186,16 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
         </div>
       </div>
       <div className="flex-none sticky bottom-4 right-0 w-auto mr-0 ml-auto">
-        <Button onClick={createAndAddTodo} className="mx-6">
-          Create Todo
-        </Button>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            createAndAddTodo();
+          }}
+        >
+          <Button type="submit" className="mx-6">
+            Create Todo
+          </Button>
+        </form>
       </div>
     </div>
   );
