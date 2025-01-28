@@ -129,7 +129,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
       </div>
       <div className="flex-auto flex flex-col px-6">
         <div className="flex flex-col gap-0 flex-1">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-0">
             <AnimatePresence>
               {uncheckedTodos.map(
                 (todo, index) =>
@@ -138,6 +138,9 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
                       key={`todo-motion-${todo.id}`}
                       exit={{ opacity: 0 }}
                       transition={{ delay: 0.6 }}
+                      className={`border-solid border-1 border-b ${
+                        uncheckedTodos.length - 1 == index && "!border-0"
+                      }`}
                     >
                       <TodoComponent
                         onFocused={() => {
@@ -157,7 +160,7 @@ export function ListComponent({ listID }: { listID: ID<List> }) {
               )}
               <Button
                 variant={"secondary"}
-                className="text-start justify-start ml-7"
+                className="text-start justify-start"
                 onClick={() => {
                   createAndAddTodo();
                 }}

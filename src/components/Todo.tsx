@@ -14,7 +14,7 @@ export const TodoComponent = forwardRef<
   const [checked, setChecked] = useState(todo.checked);
 
   return (
-    <div className="flex flex-row gap-4 items-center">
+    <div className="flex flex-row gap-4 items-center px-3">
       <AnimatedInput
         id={`todo-checkbox-${todo.id}`}
         onChange={(event) => {
@@ -23,7 +23,7 @@ export const TodoComponent = forwardRef<
         }}
         checked={checked}
       />
-      <div className="border-b border-1 border-solid w-full">
+      <div className=" w-full my-1">
         <form
           onSubmit={(event) => {
             event.preventDefault();
@@ -39,16 +39,13 @@ export const TodoComponent = forwardRef<
             onChange={(event) => {
               todo.title = event.target.value;
             }}
-            className={`border-0 bg-transparent ${
+            className={`focus-visible:ring-offset-0 focus-visible:ring-0 text-tiny border-0 bg-transparent ${
               todo.checked ? "line-through" : ""
             }`}
             onFocus={() => {
               onFocused?.();
             }}
           />
-          {/* <Input
-            
-          /> */}
         </form>
       </div>
     </div>
