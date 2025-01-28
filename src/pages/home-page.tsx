@@ -45,7 +45,7 @@ export function HomePage() {
                   .map((list) => (
                     <div key={list.id}>
                       <div
-                        className={`w-full px-4 py-4 flex flex-row gap-3 items-center justify-between bg-card transition-colors rounded-lg hover:bg-accent cursor-pointer ${
+                        className={`w-full px-4 py-4 flex flex-row gap-3 items-center justify-between bg-card transition-colors rounded-lg hover:bg-accent active:bg-accent cursor-pointer ${
                           me.root?.lists?.indexOf(list) ===
                           (me.root?.lists?.length ?? 0) - 1
                             ? "border-none"

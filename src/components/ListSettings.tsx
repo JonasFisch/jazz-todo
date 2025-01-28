@@ -7,7 +7,7 @@ import { Separator } from "./ui/separator";
 import { TypographyHeading } from "./ui/typography/heading";
 import { TypographyText } from "./ui/typography/text";
 import { Badge } from "./ui/badge";
-import { Trash2, User, UserPlus } from "lucide-react";
+import { Trash2, UserCircle, UserPlus } from "lucide-react";
 import { Input } from "./ui/input";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -62,7 +62,7 @@ export function ListSettings({ list }: { list: List }) {
                     {profile?.image ? (
                       <Image image={profile.image} />
                     ) : (
-                      <User />
+                      <UserCircle size={28} />
                     )}
                   </div>
                   <TypographyText className="!mb-0 ml-4 mr-auto text-ellipsis">
